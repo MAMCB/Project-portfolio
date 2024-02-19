@@ -3,7 +3,7 @@ import Home from './components/Home'
 import AboutMe from './components/AboutMe'
 import Projects from './components/Projects'
 import Resume from './components/Resume'
-import Nav from './components/Nav'
+import Nav from './components/NavBar'
 import Footer from './components/Footer'
 
 

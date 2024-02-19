@@ -1,19 +1,24 @@
 import Link from "next/link";
-import { Navbar } from "flowbite-react";
+import { DarkThemeToggle, Navbar } from "flowbite-react";
 
 const NavBar = () => {
   return (
     <Navbar fluid rounded>
-      <Navbar.Brand as={Link} href="https://www.linkedin.com/in/borges-miguel/">
+      <Navbar.Brand
+        as={Link}
+        target="_blank"
+        href="https://www.linkedin.com/in/borges-miguel/"
+      >
         <img
           src="https://avatars.githubusercontent.com/u/96302464?v=4"
-          className="mr-3 h-6 sm:h-9"
+          className="mr-3 h-6 sm:h-9 rounded-full w-6 sm:w-9"
           alt="Personal photo"
         />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          Flowbite React
+        <span className="self-center whitespace-nowrap text-xl font-semibold text-black dark:text-white">
+          Hi I'm Miguel
         </span>
       </Navbar.Brand>
+      <DarkThemeToggle />
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Navbar.Link href="/" active>

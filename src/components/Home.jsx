@@ -2,8 +2,8 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div className="flex flex-col h-screen">
-      <div className="flex-1 flex items-center justify-center">
+    <div className=" p-10 md:flex md:flex-col md:h-screen md:p-0">
+      <div className="md:flex-1 md:flex md:items-center md:justify-center">
         <img
           className="h-96 mr-10 rounded-full"
           src="https://avatars.githubusercontent.com/u/96302464?v=4"

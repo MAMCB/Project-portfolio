@@ -18,12 +18,20 @@ const Projects = () => {
  
   return (
     <div>
-      <h1>My projects</h1>
-      <div className=' md:flex md:justify-evenly'>
-        {projects.length > 0 ? (projects.map((project) => (<ProjectsCard key={project.sys.id} project={project} />))) : <p>Loading...</p>}
+      <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">
+        My projects
+      </h1>
+      <div className=" md:flex md:justify-evenly">
+        {projects.length > 0 ? (
+          projects.map((project) => (
+            <ProjectsCard key={project.sys.id} project={project} />
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </div>
-  )
+  );
 }
 
 export default Projects

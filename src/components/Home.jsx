@@ -9,7 +9,7 @@ const Home = () => {
           src="https://avatars.githubusercontent.com/u/96302464?v=4"
           alt="Personal photo"
         />
-        <h1 className="text-6xl font-bold ml-10">Welcome to my portfolio</h1>
+        <h1 className="text-6xl font-bold ml-10 dark:text-white">Welcome to my portfolio</h1>
       </div>
     </div>
   );

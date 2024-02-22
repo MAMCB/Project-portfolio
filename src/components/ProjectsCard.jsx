@@ -1,15 +1,10 @@
 import { Card } from "flowbite-react";
 import { Link } from "react-router-dom";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
 const ProjectsCard = ({project}) => {
-  function getLastSubstringFromUrl(url) {
-    // Split the URL by '/' character
-    const parts = url.split('/');
-   
-    
-    // Return the last substring
-    return parts[4];
-}
+
+
   return (
     <Card
       className="w-full  md:max-w-sm"
@@ -40,12 +35,39 @@ const ProjectsCard = ({project}) => {
       </p>
       {project.fields.contributors && (
         <div>
-          <h5>Contributors: </h5>
-          {project.fields.contributors.map((contributor, index) => (
-            <Link className="mr-4" key={index} to={contributor} target="_blank">
-              {getLastSubstringFromUrl(contributor)}
-            </Link>
-          ))}
+          <h5 className="mb-2">Contributors: </h5>
+          {documentToReactComponents(project.fields.contributors, {
+            renderNode: {
+              text: (text) => text,
+              paragraph: (node, children) => <p>{children}</p>,
+              "embedded-entry-inline": (node) => {
+                const { data } = node;
+                const { target, title } = data.target.fields;
+                return (
+                  <div>
+                    <a
+                      href={target}
+                      title={title}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {title}
+                    </a>
+                  </div>
+                );
+              },
+              // Add the 'a' tag renderer to handle links
+              hyperlink: (node, children) => {
+                const { data } = node;
+                const { uri } = data;
+                return (
+                  <a href={uri} target="_blank" rel="noopener noreferrer">
+                    {children}
+                  </a>
+                );
+              },
+            },
+          })}
         </div>
       )}
     </Card>

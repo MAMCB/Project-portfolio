@@ -35,11 +35,13 @@ const ProjectsCard = ({project}) => {
       </p>
       {project.fields.contributors && (
         <div>
-          <h5 className="mb-2">Contributors: </h5>
+          <h5 className="mb-2 text-black dark:text-white">Contributors: </h5>
           {documentToReactComponents(project.fields.contributors, {
             renderNode: {
               text: (text) => text,
-              paragraph: (node, children) => <p>{children}</p>,
+              paragraph: (node, children) => (
+                <p className="mb-2 text-black dark:text-white">{children}</p>
+              ),
               "embedded-entry-inline": (node) => {
                 const { data } = node;
                 const { target, title } = data.target.fields;

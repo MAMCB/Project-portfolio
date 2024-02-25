@@ -7,7 +7,7 @@ const NavBar = () => {
       <Navbar.Brand
         as={Link}
         target="_blank"
-        href="https://www.linkedin.com/in/borges-miguel/"
+        href="/"
       >
         <img
           src="https://avatars.githubusercontent.com/u/96302464?v=4"

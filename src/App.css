@@ -9,7 +9,7 @@ table {
             border-spacing:0 40px;
         }
 
-    tr    td:nth-child(2){
+    tr    td:nth-child(2),.background{
             /* From https://css.glass */
             padding: 2rem;
 background: rgba(255, 255, 255, 0.2);

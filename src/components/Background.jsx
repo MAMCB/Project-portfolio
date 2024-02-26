@@ -14,7 +14,7 @@ function Box(){
   // Use useFrame hook to rotate the mesh
   useFrame(({ clock }, delta) => {
     if(myMesh.current){
-        console.log(myMesh.current);
+       
     myMesh.current.rotation.y =clock.getElapsedTime()*0.3; // Adjust rotation speed here
     }
   });

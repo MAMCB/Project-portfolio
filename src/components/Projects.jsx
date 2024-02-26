@@ -39,13 +39,17 @@ const Projects = () => {
           </div>
         </Tabs.Item>
         <Tabs.Item title="Games" icon={MdDashboard}>
-          This is{" "}
-          <span className="font-medium text-gray-800 dark:text-white">
-            Dashboard tab's associated content
-          </span>
-          . Clicking another tab will toggle the visibility of this one for the
-          next. The tab JavaScript swaps classes to control the content
-          visibility and styling.
+          <div className='flex justify-center'>
+            <iframe
+              width="853"
+              height="480"
+              src="https://www.youtube.com/embed/WwgKwg2hdNA"
+              title="Ongoing game projects"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
         </Tabs.Item>
         <Tabs.Item title="Articles" icon={HiAdjustments}>
           This is{" "}

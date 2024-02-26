@@ -1,4 +1,6 @@
 import { OrbitControls, ScrollControls } from "@react-three/drei";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import UI from "./UI";
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
@@ -6,13 +8,22 @@ import Banner from "../../public/Banner.png";
 import Home from "./Home";
 
 function Box(){
-    const texture = useLoader(TextureLoader, Banner);
-    return (
-        <mesh>
-            <boxGeometry args={[5, 1, 5]} />
-            <meshStandardMaterial map={texture} />
-        </mesh>
-    );
+  const texture = useLoader(TextureLoader, Banner);
+  const myMesh = useRef();
+
+  // Use useFrame hook to rotate the mesh
+  useFrame(({ clock }, delta) => {
+    if(myMesh.current){
+        console.log(myMesh.current);
+    myMesh.current.rotation.y =clock.getElapsedTime()*0.3; // Adjust rotation speed here
+    }
+  });
+  return (
+    <mesh ref={myMesh}>
+      <boxGeometry args={[5, 1, 5]} />
+      <meshStandardMaterial map={texture} />
+    </mesh>
+  );
 }
 
 const Background = () => {

@@ -16,7 +16,14 @@ const AboutMe = () => {
    <div>
      {aboutMe && (
        <div className="h-vh">
-         <img src={aboutMe.pdf.fields.file.url} alt="personal banner" />
+         <div className="md:flex-1 md:flex md:items-center md:justify-center">
+           <img
+             className="h-96 mr-10 rounded-full"
+             src="https://avatars.githubusercontent.com/u/96302464?v=4"
+             alt="Personal photo"
+           />
+         </div>
+        
          <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">
            About me
          </h1>

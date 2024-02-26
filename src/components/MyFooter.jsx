@@ -20,7 +20,7 @@ const MyFooter = () => {
       </Footer.LinkGroup>
 
       <Footer.LinkGroup>
-        <Footer.Link href="/about">About</Footer.Link>
+        <Footer.Link href="/about-portfolio">About this </Footer.Link>
 
         <Footer.Link href="/contacts">Contact</Footer.Link>
       </Footer.LinkGroup>

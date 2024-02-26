@@ -7,6 +7,7 @@ import NavBar from './components/NavBar'
 import MyFooter from './components/MyFooter'
 import ProjectDetail from './components/ProjectDetail'
 import Contacts from './components/Contacts'
+import AboutPortfolio from './components/AboutPortfolio'
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
 
 
@@ -27,6 +28,7 @@ function App() {
           <Route path='/projects/:id' element={<ProjectDetail />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="/contacts" element={<Contacts />} />
+          <Route path="/about-portfolio" element={<AboutPortfolio />} />
         </Routes>
       </BrowserRouter>
       

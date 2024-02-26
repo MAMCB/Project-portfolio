@@ -1,9 +1,10 @@
-body{
-    height: 100vh;
-   color:white;
-   background: url("../public/background.jpg") no-repeat center center ;
-   background-size:cover;
-    /* -webkit-background-size: cover;
+body {
+  height: 100vh;
+  /* color: white;
+  background-color: black; */
+  /* background: url("../public/background.jpg") no-repeat center center ;
+   background-size:cover; */
+  /* -webkit-background-size: cover;
     -moz-background-size: cover;
     -ms-background-size: cover;
     -o-background-size: cover;

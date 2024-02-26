@@ -1,19 +1,28 @@
 import React from 'react'
 import { Footer } from 'flowbite-react'
+import github from "../../public/github-mark.png";
+import linkedin from "../../public/LI-In-Bug.png";
 
 const MyFooter = () => {
   return (
     <Footer container>
-      <Footer.Copyright
-        href="https://www.freepik.com/free-vector/creative-geometric-design-space_4159942.htm#query=portfolio%20background&position=10&from_view=keyword&track=ais&uuid=2db72275-57c2-46ab-a44f-790db72bd57c"
-        by="Image by rawpixel.com on Freepik"
-        
-      />
       <Footer.LinkGroup>
-        <Footer.Link href="#">About</Footer.Link>
-        <Footer.Link href="#">Privacy Policy</Footer.Link>
-        <Footer.Link href="#">Licensing</Footer.Link>
-        <Footer.Link href="#">Contact</Footer.Link>
+        <Footer.Link href="https://github.com/MAMCB" target="_blank">
+          <img
+            className="w-10 dark:bg-white rounded-full "
+            src={github}
+            alt="github logo"
+          />
+        </Footer.Link>
+        <Footer.Link href="https://www.linkedin.com/in/borges-miguel/" target='_blank'>
+          <img className="w-10" src={linkedin} alt="linkedin logo" />
+        </Footer.Link>
+      </Footer.LinkGroup>
+
+      <Footer.LinkGroup>
+        <Footer.Link href="/about-portfolio">About this </Footer.Link>
+
+        <Footer.Link href="/contacts">Contact</Footer.Link>
       </Footer.LinkGroup>
     </Footer>
   );

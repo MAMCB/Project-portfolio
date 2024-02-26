@@ -6,8 +6,8 @@ const NavBar = () => {
     <Navbar fluid rounded>
       <Navbar.Brand
         as={Link}
-        target="_blank"
-        href="https://www.linkedin.com/in/borges-miguel/"
+        
+        href="/"
       >
         <img
           src="https://avatars.githubusercontent.com/u/96302464?v=4"
@@ -25,7 +25,7 @@ const NavBar = () => {
           Home
         </Navbar.Link>
         <Navbar.Link as={Link} href="/about">
-          About
+          About me
         </Navbar.Link>
         <Navbar.Link href="/projects">Projects</Navbar.Link>
         <Navbar.Link href="/resume">Resume</Navbar.Link>

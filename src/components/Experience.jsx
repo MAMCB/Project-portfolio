@@ -1,15 +1,20 @@
-import { OrbitControls } from "@react-three/drei"
+import { OrbitControls,ScrollControls } from "@react-three/drei"
+import { Island } from "./Island"
+import UI from "./UI";
+
+
 
 const Experience = () => {
   return (
     <>
-    <OrbitControls />
-    <mesh>
-      <boxGeometry/>
-      <meshNormalMaterial />
-    </mesh>
+      <ambientLight intensity={4} />
+      <OrbitControls />
+      <ScrollControls>
+        <Island />
+        <UI />
+      </ScrollControls>
     </>
-  )
+  );
 }
 
 export default Experience

@@ -7,17 +7,23 @@ import React, { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useGLTF } from "@react-three/drei";
 
+import { useFrame } from "@react-three/fiber";
+
 export function Island(props) {
   const { nodes, materials } = useGLTF("./models/Complete-Blender-Creator-Houses.glb");
-  const ref = useRef();
-  const tl = useRef();
+  
+   const myMesh = useRef();
 
-  useLayoutEffect(() => {
-    tl.current = gsap.timeline();
-    tl.current.to(ref.current.position,{duration:2, y: 0, ease: "power2.inOut"}).to(ref.current.rotation,{duration:2, y: 0, ease: "power2.inOut"},0);
-  }, []);
+   // Use useFrame hook to rotate the mesh
+   useFrame(({ clock }, delta) => {
+     if (myMesh.current) {
+       myMesh.current.rotation.y = clock.getElapsedTime() * 0.3; // Adjust rotation speed here
+     }
+   });
+
+ 
   return (
-    <group {...props} dispose={null} ref={ref}>
+    <group {...props} dispose={null} ref={myMesh}>
       <group position={[-12.347, 1.934, -1.544]} scale={0.698}>
         <mesh geometry={nodes.Cylinder.geometry} material={materials.Base} />
         <mesh geometry={nodes.Cylinder_1.geometry} material={materials.White} />

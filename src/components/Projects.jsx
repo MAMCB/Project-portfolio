@@ -6,6 +6,7 @@ import ProjectsCard from './ProjectsCard'
 import { Tabs } from "flowbite-react";
 import { HiAdjustments, HiClipboardList, HiUserCircle } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
+import { Carousel } from 'flowbite-react';
 
 
 const Projects = () => {
@@ -28,18 +29,29 @@ const Projects = () => {
       </h1>
       <Tabs aria-label="Default tabs" style="default">
         <Tabs.Item active title="Web Applications" icon={HiUserCircle}>
-          <div className=" md:flex md:justify-evenly">
+          <div>
             {projects.length > 0 ? (
-              projects.map((project) => (
-                <ProjectsCard key={project.sys.id} project={project} />
-              ))
+              <Carousel
+                className="bg-gray-400 dark:bg-gray-600 "
+                slide={true}
+                controls={true}
+                indicators={true}
+              >
+                {projects.map((project) => (
+                  <ProjectsCard
+                    key={project.sys.id}
+                    project={project}
+                    
+                  />
+                ))}
+              </Carousel>
             ) : (
               <p>Loading...</p>
             )}
           </div>
         </Tabs.Item>
         <Tabs.Item title="Games" icon={MdDashboard}>
-          <div className='flex justify-center'>
+          <div className="flex justify-center">
             <iframe
               width="853"
               height="480"

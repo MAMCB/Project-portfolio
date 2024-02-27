@@ -8,7 +8,11 @@ const ProjectsCard = ({project}) => {
 
   return (
     <Card
-      className="w-full  md:max-w-sm"
+      style={{
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+      className="w-2/3  md:max-w-sm"
       imgAlt="Meaningful alt text for an image that is not purely decorative"
       imgSrc={project.fields.thumbnail.fields.file.url}
     >

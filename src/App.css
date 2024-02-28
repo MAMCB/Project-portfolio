@@ -27,3 +27,35 @@ canvas {
 .carousel-container{
     height:35rem;
 }
+
+/* Example CSS */
+.fadeIn {
+  opacity: 0;
+  animation: fadeIn ease 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.slideInLeft {
+  transform: translateX(-100%);
+  animation: slideInLeft ease 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+

@@ -5,6 +5,7 @@ import client from "../contentfulClient";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 
 const ProjectDetail = () => {
   const id = useParams();
@@ -28,12 +29,12 @@ const ProjectDetail = () => {
     <div className="h-full p-8">
       {project && (
         <>
-          <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">
+          <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white fadeIn ">
             {project.fields.name}
           </h1>
 
           {project.fields.videoDemoEmbed && (
-            <div className="flex justify-center">
+            <div className="flex justify-center fadeIn">
               <iframe
                 width="853"
                 height="480"
@@ -45,88 +46,114 @@ const ProjectDetail = () => {
               ></iframe>
             </div>
           )}
-
-          <p className="w-1/2 mx-auto mt-10">{project.fields.description}</p>
+         
+            <p className="w-1/2 mx-auto mt-10 fadeIn">{project.fields.description}</p>
+          
           <div>
             <div className="flex justify-center mt-8">
               {project.fields.deployedProjectLink && (
+                
+                  <Link
+                    className="text-lg font-bold tracking-tight text-gray-900 dark:text-white mr-5 slideInLeft"
+                    to={project.fields.deployedProjectLink}
+                    target="_blank"
+                  >
+                    <Button>Live version</Button>
+                  </Link>
+               
+              )}
+             
                 <Link
-                  className="text-lg font-bold tracking-tight text-gray-900 dark:text-white mr-5"
-                  to={project.fields.deployedProjectLink}
+                  className="text-lg font-bold tracking-tight text-gray-900 dark:text-white ml-5 slideInLeft"
+                  to={project.fields.githubRepoLink}
                   target="_blank"
                 >
-                  <Button>Live version</Button>
+                  <Button>Github link</Button>
                 </Link>
-              )}
-
-              <Link
-                className="text-lg font-bold tracking-tight text-gray-900 dark:text-white ml-5"
-                to={project.fields.githubRepoLink}
-                target="_blank"
-              >
-                <Button>Github link</Button>
-              </Link>
+            
             </div>
-            <h2 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
-              Technologies used
-            </h2>
+            <AnimationOnScroll
+              animateIn="fadeIn"
+              animateOut="fadeOut"
+              animateOnce="true"
+            >
+              <h2 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
+                Technologies used
+              </h2>
+            </AnimationOnScroll>
             <ul className="flex flex-col md:flex-row md:flex-wrap justify-evenly">
               {project.fields.techStack.map((tech) => (
-                <li
-                  key={tech.fields.name}
-                  className="background flex justify-evenly mt-4"
+                <AnimationOnScroll
+                  animateIn="slideInLeft"
+                  animateOut="fadeOut"
+                  animateOnce="true"
                 >
-                  <h3>{tech.fields.name}</h3>
-                  <img
-                    className="h-10 ml-4"
-                    src={tech.fields.logo.fields.file.url}
-                    alt={tech.fields.name}
-                  />
-                </li>
+                  <li
+                    key={tech.fields.name}
+                    className="background flex justify-evenly mt-4"
+                  >
+                    <h3>{tech.fields.name}</h3>
+                    <img
+                      className="h-10 ml-4"
+                      src={tech.fields.logo.fields.file.url}
+                      alt={tech.fields.name}
+                    />
+                  </li>
+                </AnimationOnScroll>
               ))}
             </ul>
             {project.fields.contributors && (
-              <div className="flex justify-center mt-8">
-                <h5 className="mb-2 text-black dark:text-white">
-                  Contributors:{" "}
-                </h5>
-                {documentToReactComponents(project.fields.contributors, {
-                  renderNode: {
-                    text: (text) => text,
-                    paragraph: (node, children) => (
-                      <p className="mb-2 ml-8 text-black dark:text-white">
-                        {children}
-                      </p>
-                    ),
-                    "embedded-entry-inline": (node) => {
-                      const { data } = node;
-                      const { target, title } = data.target.fields;
-                      return (
-                        <div>
+              <AnimationOnScroll
+                animateIn="fadeIn"
+                animateOut="fadeOut"
+                animateOnce="true"
+              >
+                <div className="flex justify-center mt-8">
+                  <h5 className="mb-2 text-black dark:text-white">
+                    Contributors:{" "}
+                  </h5>
+                  {documentToReactComponents(project.fields.contributors, {
+                    renderNode: {
+                      text: (text) => text,
+                      paragraph: (node, children) => (
+                        <p className="mb-2 ml-8 text-black dark:text-white">
+                          {children}
+                        </p>
+                      ),
+                      "embedded-entry-inline": (node) => {
+                        const { data } = node;
+                        const { target, title } = data.target.fields;
+                        return (
+                          <div>
+                            <a
+                              href={target}
+                              title={title}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {title}
+                            </a>
+                          </div>
+                        );
+                      },
+                      // Add the 'a' tag renderer to handle links
+                      hyperlink: (node, children) => {
+                        const { data } = node;
+                        const { uri } = data;
+                        return (
                           <a
-                            href={target}
-                            title={title}
+                            href={uri}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            {title}
+                            {children}
                           </a>
-                        </div>
-                      );
+                        );
+                      },
                     },
-                    // Add the 'a' tag renderer to handle links
-                    hyperlink: (node, children) => {
-                      const { data } = node;
-                      const { uri } = data;
-                      return (
-                        <a href={uri} target="_blank" rel="noopener noreferrer">
-                          {children}
-                        </a>
-                      );
-                    },
-                  },
-                })}
-              </div>
+                  })}
+                </div>
+              </AnimationOnScroll>
             )}
           </div>
         </>

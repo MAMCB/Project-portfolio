@@ -107,7 +107,7 @@ const Resume = () => {
                   imgSrc={cv.thumbnail.fields.file.url}
                 >
                   <a href={cv.pdf.fields.file.url} target="_blank" download>
-                    <Button>Download CV</Button>
+                    <Button>Open CV</Button>
                   </a>
                 </Card>
 
@@ -126,7 +126,7 @@ const Resume = () => {
                       target="_blank"
                       download
                     >
-                      <Button>Download certificate</Button>
+                      <Button>Open certificate</Button>
                     </a>
                   </Card>
                 ))}

@@ -143,7 +143,7 @@ const Resume = () => {
                 </h3>
                 <ul className=" mx-auto flex flex-col justify-center p-8 text-center">
                   {resume.skillsLogo.map((skill) => (
-                    <li key={skill.fields.name} className="m-4 background">
+                    <li key={skill.fields.name} className="m-4 background w-64">
                       <div className="flex justify-evenly">
                         <h2 className="mr-4">{skill.fields.name}</h2>
                         <img

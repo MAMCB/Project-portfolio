@@ -70,11 +70,11 @@ const ProjectDetail = () => {
             <h2 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
               Technologies used
             </h2>
-            <ul className="flex flex-col md:flex-row justify-evenly">
+            <ul className="flex flex-col md:flex-row md:flex-wrap justify-evenly">
               {project.fields.techStack.map((tech) => (
                 <li
                   key={tech.fields.name}
-                  className="background flex justify-evenly"
+                  className="background flex justify-evenly mt-4"
                 >
                   <h3>{tech.fields.name}</h3>
                   <img

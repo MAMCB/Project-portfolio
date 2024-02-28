@@ -7,20 +7,45 @@ import { Tabs } from "flowbite-react";
 import { HiAdjustments, HiClipboardList, HiUserCircle } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 import { Carousel } from 'flowbite-react';
+import { Label, Select } from "flowbite-react";
 
 
 const Projects = () => {
 
-  const [projects, setProjects] = useState([])
+  const [webProjects, setWebProjects] = useState([])
+  const [gameProjects, setGameProjects] = useState([])
+  const [webProjectsToShow, setWebProjectsToShow] = useState([])
+  const [gameProjectsToShow, setGameProjectsToShow] = useState([])
   const [documents, setDocuments] = useState([])
+  const [programmingLanguages, setProgrammingLanguages] = useState([])
 
   useEffect(() => {
     client.getEntries().then((response) => {
       console.log(response)
-      setProjects(response.items.filter(item => item.sys.contentType.sys.id === 'webDevProject'));
+      setWebProjects(response.items.filter(item => item.sys.contentType.sys.id === 'webDevProject'));
       setDocuments(response.items.filter(item => item.sys.contentType.sys.id === 'article'));
+      setGameProjects(response.items.filter(item => item.sys.contentType.sys.id === 'gameDevProject'));
+      setProgrammingLanguages(response.items.filter(item => item.sys.contentType.sys.id === 'programmingLanguages'));
     });
   }, [])
+
+  useEffect(() => {
+    setWebProjectsToShow(webProjects)
+  }, [webProjects])
+
+  useEffect(() => {
+    setGameProjectsToShow(gameProjects)
+  }, [gameProjects])
+
+  const setFilter = (e) => {
+    if (e.target.value === "all") {
+      setWebProjectsToShow(webProjects);}
+    else if (e.target.value === "fullstack") {
+      setWebProjectsToShow(webProjects.filter(project => project.fields.fullstack === true));}
+    else {
+      setWebProjectsToShow(webProjects.filter(project => project.fields.techStack.find((programmingLanguage)=>programmingLanguage.fields.name.toLowerCase() === e.target.value.toLowerCase())));
+    }
+  }
  
   return (
     <div>
@@ -29,24 +54,36 @@ const Projects = () => {
       </h1>
       <Tabs aria-label="Default tabs" style="default">
         <Tabs.Item active title="Web Applications" icon={HiUserCircle}>
+          <div className="max-w-md mx-auto mb-4">
+            <div className="mb-2 block">
+              <Label htmlFor="webFilter" value="Filter projects" />
+            </div>
+            <Select id="webFilter" onChange={setFilter}>
+              <option value={"all"}>All</option>
+              <option value={"fullstack"}>Fullstack</option>
+              {programmingLanguages.map((language) => (
+                <option value={language.fields.name} key={language.sys.id}>
+                  {language.fields.name}
+                </option>
+              ))}
+            </Select>
+          </div>
           <div>
-            {projects.length > 0 ? (
+            {webProjectsToShow.length > 0 ? (
               <Carousel
                 className="bg-gray-400 dark:bg-gray-600 "
                 slide={true}
                 controls={true}
                 indicators={true}
               >
-                {projects.map((project) => (
-                  <ProjectsCard
-                    key={project.sys.id}
-                    project={project}
-                    
-                  />
+                {webProjectsToShow.map((project) => (
+                  <ProjectsCard key={project.sys.id} project={project} />
                 ))}
               </Carousel>
             ) : (
-              <p>Loading...</p>
+              <p className="mb-2 mx-auto p-10 text-black dark:text-white">
+                No project found with that technology
+              </p>
             )}
           </div>
         </Tabs.Item>

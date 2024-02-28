@@ -6,6 +6,7 @@ import { HiAdjustments, HiClipboardList, HiUserCircle } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 import client from "../contentfulClient";
 import { Button, Card, Carousel } from "flowbite-react";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 
 const Resume = () => {
   const [resume, setResume] = useState(null);
@@ -37,7 +38,7 @@ const Resume = () => {
       });
   }, []);
   return (
-    <div>
+    <div className="p-10 md:p-4">
       <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">
         My CV
       </h1>
@@ -45,38 +46,61 @@ const Resume = () => {
         <Tabs.Item active title="CV" icon={HiUserCircle}>
           {resume && (
             <div className="md:w-1/2 mx-auto">
-              <h2 className=" mx-auto text-center p-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white ">
+              <h2 className=" mx-auto text-center p-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white fadeIn ">
                 {resume.name}
               </h2>
-              <h3 className=" mx-auto text-center pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
+              <h3 className=" mx-auto text-center pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white fadeIn ">
                 {resume.jobTitle}
               </h3>
 
-              <p className="mb-5 ml-4">{resume.aboutMe}</p>
-
-              <h3 className=" mx-auto text-center pb-2 mt-20 mb-10  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
-                Education
-              </h3>
+              <p className="mb-5 ml-4 fadeIn">{resume.aboutMe}</p>
+              <AnimationOnScroll
+                animateIn="fadeIn"
+                animateOut="fadeOut"
+                animateOnce="true"
+              >
+                <h3 className=" mx-auto text-center pb-2 mt-20 mb-10  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
+                  Education
+                </h3>
+              </AnimationOnScroll>
               {documentToReactComponents(resume.education, {
                 renderNode: {
                   text: (text) => text,
                   paragraph: (node, children) => (
-                    <p className="mt-2 text-gray-900 dark:text-white">
-                      {children}
-                    </p>
+                    <AnimationOnScroll
+                      animateIn="fadeIn"
+                      animateOut="fadeOut"
+                      animateOnce="true"
+                    >
+                      <p className="mt-2 text-gray-900 dark:text-white">
+                        {children}
+                      </p>
+                    </AnimationOnScroll>
                   ),
                 },
               })}
-              <h3 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
-                Work Experience
-              </h3>
+              <AnimationOnScroll
+                animateIn="fadeIn"
+                animateOut="fadeOut"
+                animateOnce="true"
+              >
+                <h3 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
+                  Work Experience
+                </h3>
+              </AnimationOnScroll>
               {documentToReactComponents(resume.workExperience, {
                 renderNode: {
                   text: (text) => text,
                   paragraph: (node, children) => (
-                    <p className="mt-2 text-gray-900 dark:text-white">
-                      {children}
-                    </p>
+                    <AnimationOnScroll
+                      animateIn="fadeIn"
+                      animateOut="fadeOut"
+                      animateOnce="true"
+                    >
+                      <p className="mt-2 text-gray-900 dark:text-white">
+                        {children}
+                      </p>
+                    </AnimationOnScroll>
                   ),
                 },
               })}
@@ -138,48 +162,102 @@ const Resume = () => {
           {resume && (
             <div className="md:w-1/2 mx-auto md:flex">
               <div>
-                <h3 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
-                  Technical Skills
-                </h3>
+                <AnimationOnScroll
+                  animateIn="slideInLeft"
+                  animateOut="fadeOut"
+                  animateOnce="true"
+                >
+                  <h3 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
+                    Technical Skills
+                  </h3>
+                </AnimationOnScroll>
                 <ul className=" mx-auto flex flex-col justify-center p-8 text-center">
                   {resume.skillsLogo.map((skill) => (
-                    <li key={skill.fields.name} className="m-4 background w-64">
-                      <div className="flex justify-evenly">
-                        <h2 className="mr-4">{skill.fields.name}</h2>
-                        <img
-                          src={skill.fields.logo.fields.file.url}
-                          alt={skill.fields.name}
-                          className=" h-10"
-                        />
-                      </div>
-                    </li>
+                    <AnimationOnScroll
+                      animateIn="slideInLeft"
+                      animateOut="fadeOut"
+                      animateOnce="true"
+                    >
+                      <li
+                        key={skill.fields.name}
+                        className="m-4 background w-64"
+                      >
+                        <div className="flex justify-evenly">
+                          <h2 className="mr-4">{skill.fields.name}</h2>
+                          <img
+                            src={skill.fields.logo.fields.file.url}
+                            alt={skill.fields.name}
+                            className=" h-10"
+                          />
+                        </div>
+                      </li>
+                    </AnimationOnScroll>
                   ))}
 
                   {resume.technicalSkills.map((skill) => (
-                    <li key={skill} className="background m-4">
-                      {skill}
-                    </li>
+                    <AnimationOnScroll
+                      animateIn="slideInLeft"
+                      animateOut="fadeOut"
+                      animateOnce="true"
+                    >
+                      <li key={skill} className="background m-4">
+                        {skill}
+                      </li>
+                    </AnimationOnScroll>
                   ))}
                 </ul>
               </div>
               <div>
-                <h3 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
-                  Personal Strengths
-                </h3>
+                <AnimationOnScroll
+                  animateIn="slideInLeft"
+                  animateOut="fadeOut"
+                  animateOnce="true"
+                >
+                  <h3 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
+                    Personal Strengths
+                  </h3>
+                </AnimationOnScroll>
                 <ul className=" mx-auto flex flex-col justify-center p-8 text-center">
                   {resume.personalStrengths.map((strength) => (
-                    <li key={strength} className="background m-4">
-                      {strength}
-                    </li>
+                    <AnimationOnScroll
+                      animateIn="slideInLeft"
+                      animateOut="fadeOut"
+                      animateOnce="true"
+                    >
+                      <li key={strength} className="background m-4">
+                        {strength}
+                      </li>
+                    </AnimationOnScroll>
                   ))}
                 </ul>
               </div>
               <div>
-                <h3 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
-                  Languages
-                </h3>
+                <AnimationOnScroll
+                  animateIn="slideInLeft"
+                  animateOut="fadeOut"
+                  animateOnce="true"
+                >
+                  <h3 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
+                    Languages
+                  </h3>
+                </AnimationOnScroll>
                 <div className=" mx-auto flex flex-col justify-center p-8">
-                  {documentToReactComponents(resume.languages)}
+                  {documentToReactComponents(resume.languages, {
+                    renderNode: {
+                      text: (text) => text,
+                      paragraph: (node, children) => (
+                        <AnimationOnScroll
+                          animateIn="fadeIn"
+                          animateOut="fadeOut"
+                          animateOnce="true"
+                        >
+                          <p className="m-4 text-gray-900 dark:text-white">
+                            {children}
+                          </p>{" "}
+                        </AnimationOnScroll>
+                      ),
+                    },
+                  })}
                 </div>
               </div>
             </div>

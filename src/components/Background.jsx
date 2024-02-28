@@ -32,8 +32,9 @@ const Background = () => {
         <ambientLight intensity={4} />
         <OrbitControls enableZoom={true} />
         <ScrollControls pages={3}>
-            <Box />
-            <Home />
+          <Home />
+          <Box />
+            
           
         </ScrollControls>
         </>

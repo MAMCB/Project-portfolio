@@ -17,6 +17,13 @@ const ProjectDetail = () => {
     });
   }, [id.id]);
 
+  const getVideoUrl = () => {
+    const videoUrl = project.fields.videoDemoEmbed;
+    const urlArray = videoUrl.split("/");
+    const videoId = urlArray[urlArray.length - 1];
+    return `https://www.youtube.com/embed/${videoId}`;
+  };
+
   return (
     <div className="h-full p-8">
       {project && (
@@ -24,10 +31,21 @@ const ProjectDetail = () => {
           <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">
             {project.fields.name}
           </h1>
-          <div
-            className="flex justify-center"
-            dangerouslySetInnerHTML={{ __html: project.fields.videoDemoEmbed }}
-          />
+
+          {project.fields.videoDemoEmbed && (
+            <div className="flex justify-center">
+              <iframe
+                width="853"
+                height="480"
+                src={getVideoUrl()}
+                title={project.fields.name}
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+          )}
+
           <p className="w-1/2 mx-auto mt-10">{project.fields.description}</p>
           <div>
             <div className="flex justify-center mt-8">

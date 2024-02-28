@@ -5,7 +5,7 @@ import UI from "./UI";
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
 import Banner from "../../public/Banner.png";
-import Home from "./Home";
+
 
 function Box(){
   const texture = useLoader(TextureLoader, Banner);
@@ -28,16 +28,14 @@ function Box(){
 
 const Background = () => {
     return (
-        <>
+      <>
+        <directionalLight color="white" position={[0, 0, 5]} intensity={5} />
         <ambientLight intensity={4} />
         <OrbitControls enableZoom={true} />
         <ScrollControls pages={3}>
-          <Home />
           <Box />
-            
-          
         </ScrollControls>
-        </>
+      </>
     );
     }
 export default Background;

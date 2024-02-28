@@ -149,7 +149,7 @@ const Resume = () => {
                         <img
                           src={skill.fields.logo.fields.file.url}
                           alt={skill.fields.name}
-                          className="w-10 h-10"
+                          className=" h-10"
                         />
                       </div>
                     </li>

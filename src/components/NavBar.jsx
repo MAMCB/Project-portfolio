@@ -18,7 +18,7 @@ const NavBar = () => {
           Hi I'm Miguel
         </span>
       </Navbar.Brand>
-      <DarkThemeToggle />
+      <DarkThemeToggle  />
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Navbar.Link href="/" active>

@@ -18,7 +18,7 @@ const AboutMe = () => {
        <div className="h-vh">
          <div className="md:flex-1 md:flex md:items-center md:justify-center">
            <img
-             className="h-96 mr-10 rounded-full"
+             className="h-96 mt-8 mr-10 rounded-full"
              src="https://avatars.githubusercontent.com/u/96302464?v=4"
              alt="Personal photo"
            />

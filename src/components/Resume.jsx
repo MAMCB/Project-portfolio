@@ -126,7 +126,7 @@ const Resume = () => {
                 className="bg-gray-400 dark:bg-gray-600"
               >
                 <Card
-                  className="w-1/2  md:max-w-sm"
+                  className="w-2/3  md:max-w-sm"
                   imgAlt="Meaningful alt text for an image that is not purely decorative"
                   imgSrc={cv.thumbnail.fields.file.url}
                 >
@@ -138,7 +138,7 @@ const Resume = () => {
                 {certifications.map((certification) => (
                   <Card
                     key={certification.sys.id}
-                    className="w-1/2  md:max-w-sm"
+                    className="w-2/3  md:max-w-sm"
                     imgAlt="Meaningful alt text for an image that is not purely decorative"
                     imgSrc={certification.fields.thumbnail.fields.file.url}
                   >

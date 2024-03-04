@@ -47,7 +47,7 @@ const ProjectDetail = () => {
             </div>
           )}
          
-            <p className="w-1/2 mx-auto mt-10 fadeIn">{project.fields.description}</p>
+            <p className="w-2/3 md:1/2 mx-auto mt-10 fadeIn">{project.fields.description}</p>
           
           <div>
             <div className="flex justify-center mt-8">

@@ -5,7 +5,7 @@ import linkedin from "../../public/LI-In-Bug.png";
 
 const MyFooter = () => {
   return (
-    <Footer container>
+    <Footer container className='flex justify-between'>
       <Footer.LinkGroup>
         <Footer.Link href="https://github.com/MAMCB" target="_blank">
           <img

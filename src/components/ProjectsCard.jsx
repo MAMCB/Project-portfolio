@@ -12,7 +12,7 @@ const ProjectsCard = ({project}) => {
         marginLeft: "auto",
         marginRight: "auto",
       }}
-      className="w-2/3  md:max-w-sm"
+      className="  md:max-w-sm"
       imgAlt="Meaningful alt text for an image that is not purely decorative"
       imgSrc={project.fields.thumbnail.fields.file.url}
     >
@@ -25,7 +25,7 @@ const ProjectsCard = ({project}) => {
           to={project.fields.deployedProjectLink}
           target="_blank"
         >
-          <Button>Live version</Button>
+          <Button >Live version</Button>
         </Link>
       )}
       <div className="flex justify-between">

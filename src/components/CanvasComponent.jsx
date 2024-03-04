@@ -32,7 +32,7 @@ const CanvasComponent = () => {
           modalPlacement={modalPlacement}
         />
 
-        <div className="canvas  ">
+        <div  className="canvas  ">
           <Canvas>
             <Background />
           </Canvas>

@@ -5,6 +5,15 @@ import { Button } from "flowbite-react";
 
 const ProjectsCard = ({project}) => {
 
+  const checkScreenSize = () => {
+    console.log(window.innerWidth);
+
+    console.log(project.fields.fullyResponsive);
+    if(window.innerWidth < 1536 && !project.fields.fullyResponsive){
+      alert("This project is not fully responsive, it may not look good on your device")
+    }
+  }
+
 
   return (
     <Card
@@ -24,6 +33,7 @@ const ProjectsCard = ({project}) => {
           className="text-lg font-bold tracking-tight text-gray-900 dark:text-white"
           to={project.fields.deployedProjectLink}
           target="_blank"
+          onClick={checkScreenSize}
         >
           <Button >Live version</Button>
         </Link>

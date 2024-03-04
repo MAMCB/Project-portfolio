@@ -46,6 +46,27 @@ const Projects = () => {
       setWebProjectsToShow(webProjects.filter(project => project.fields.techStack.find((programmingLanguage)=>programmingLanguage.fields.name.toLowerCase() === e.target.value.toLowerCase())));
     }
   }
+
+  const setGameFilter = (e) => {
+    if (e.target.value === "all") {
+      setGameProjectsToShow(gameProjects);
+    } else if (e.target.value === "multiplayer") {
+      setGameProjectsToShow(
+        gameProjects.filter((project) => project.fields.multiplayer === true)
+      );
+    } else {
+      setGameProjectsToShow(
+        gameProjects.filter((project) =>
+          project.fields.techStack.find(
+            (programmingLanguage) =>
+              programmingLanguage.fields.name.toLowerCase() ===
+              e.target.value.toLowerCase()
+          )
+        )
+      );
+    }
+  }
+
  
   return (
     <div className="p-10 md:p-4">
@@ -99,6 +120,39 @@ const Projects = () => {
               allowfullscreen
             ></iframe>
           </div>
+          <div className="max-w-md mx-auto mb-4">
+            <div className="mb-2 block">
+              <Label htmlFor="gameFilter" value="Filter projects" />
+            </div>
+            <Select id="gameFilter" onChange={setGameFilter}>
+              <option value={"all"}>All</option>
+              <option value={"multiplayer"}>Multiplayer</option>
+              {programmingLanguages.map((language) => (
+                <option value={language.fields.name} key={language.sys.id}>
+                  {language.fields.name}
+                </option>
+              ))}
+            </Select>
+          </div>
+          <div>
+            {gameProjectsToShow.length > 0 ? (
+              <Carousel
+                className="bg-gray-400 dark:bg-gray-600 "
+                slide={true}
+                controls={true}
+                indicators={true}
+              >
+                {gameProjectsToShow.map((project) => (
+                  <ProjectsCard key={project.sys.id} project={project} />
+                ))}
+              </Carousel>
+            ) : (
+              <p className="mb-2 mx-auto p-10 text-black dark:text-white">
+                No project found with that technology
+              </p>
+            
+            )}
+          </div>
         </Tabs.Item>
         <Tabs.Item title="Articles" icon={HiAdjustments}>
           This is{" "}
@@ -109,7 +163,6 @@ const Projects = () => {
           next. The tab JavaScript swaps classes to control the content
           visibility and styling.
         </Tabs.Item>
-       
       </Tabs>
     </div>
   );

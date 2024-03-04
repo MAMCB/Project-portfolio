@@ -46,9 +46,45 @@ const ProjectDetail = () => {
               ></iframe>
             </div>
           )}
-         
-            <p className="w-2/3 md:1/2 mx-auto mt-10 fadeIn">{project.fields.description}</p>
+         {documentToReactComponents(project.fields.richDescription, {
+            renderNode: {
+              text: (text) => text,
+              paragraph: (node, children) => (
+                <p className=" w-2/3 md:1/2 mx-auto mt-10 fadeIn">{children}</p>
+              ),
+              "embedded-entry-inline": (node) => {
+                const { data } = node;
+                const { target, title } = data.target.fields;
+                return (
+                  <div>
+                    <a
+                      href={target}
+                      title={title}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {title}
+                    </a>
+                  </div>
+                );
+              },
+              // Add the 'a' tag renderer to handle links
+              hyperlink: (node, children) => {
+                const { data } = node;
+                const { uri } = data;
+                return (
+                  <a href={uri} target="_blank" rel="noopener noreferrer">
+                    {children}
+                  </a>
+                );
+              },
+            },
+          })}
           
+            
+          
+          
+           
           <div>
             <div className="flex justify-center mt-8">
               {project.fields.deployedProjectLink && (

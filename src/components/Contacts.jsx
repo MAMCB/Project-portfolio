@@ -56,7 +56,7 @@ const Contacts = () => {
       </h1>
       <div className="flex flex-col md:flex-row">
         <form className="flex w-2/3 md:w-1/2 flex-col mx-auto gap-4">
-          <Label className="mb-4">
+          <Label className="mb-4 slideInLeft">
             <span className="text-gray-900 dark:text-white">Name</span>
             <TextInput
               name="name"
@@ -65,7 +65,7 @@ const Contacts = () => {
               onChange={handleChange}
             />
           </Label>
-          <Label className="mb-4">
+          <Label className="mb-4 slideInLeft">
             <span className="text-gray-900 dark:text-white">Email</span>
             <TextInput
               name="email"
@@ -74,7 +74,7 @@ const Contacts = () => {
               onChange={handleChange}
             />
           </Label>
-          <Label className="mb-4">
+          <Label className="mb-4 slideInLeft">
             <span className="text-gray-900 dark:text-white">
               You are interested in
             </span>
@@ -96,7 +96,7 @@ const Contacts = () => {
               <option value={"Other"}>Other</option>
             </Select>
           </Label>
-          <Label className="mb-4">
+          <Label className="mb-4 slideInLeft">
             <span className="text-gray-900 dark:text-white">Message</span>
             <Textarea
               name="message"
@@ -107,14 +107,14 @@ const Contacts = () => {
             />
           </Label>
           <Button
-            className="w-1/2 mx-auto"
+            className="w-1/2 mx-auto slideInLeft"
             disabled={handleValidation()}
             onClick={handleSubmit}
           >
             Send
           </Button>
         </form>
-        <div className=" mx-auto flex flex-col justify-center p-8">
+        <div className=" mx-auto flex flex-col justify-center p-8 fadeIn">
           {" "}
           {resume && documentToReactComponents(resume.contact)}
           {resume && (

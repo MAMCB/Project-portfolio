@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import client from "../contentfulClient";
 import { Link } from "react-router-dom";
-import { Button } from "flowbite-react";
+import { Button,Carousel,Card } from "flowbite-react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 
@@ -33,24 +33,36 @@ const ProjectDetail = () => {
             {project.fields.name}
           </h1>
 
-          {project.fields.videoDemoEmbed && (
-            <div className="flex justify-center fadeIn">
-              <iframe
-                width="853"
-                height="480"
-                src={getVideoUrl()}
-                title={project.fields.name}
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
+          {project.fields.relatedImages.length > 0 && (
+            <div className="mt-8">
+              <Carousel
+                className="h-96 sm:h-64 xl:h-80 2xl:h-96 bg-gray-400 dark:bg-gray-600 fadeIn "
+                slide={true}
+                controls={true}
+                indicators={true}
+              >
+                {project.fields.relatedImages.map((image) => (
+                  <Card
+                    className="w-2/3 max-w-xl"
+                    key={image.fields.title}
+                    imgSrc={image.fields.file.url}
+                  >
+                    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      {image.fields.title}
+                    </h5>
+                    <p>{image.fields.description}</p>
+                  </Card>
+                ))}
+              </Carousel>
             </div>
           )}
-         {documentToReactComponents(project.fields.richDescription, {
+          {documentToReactComponents(project.fields.richDescription, {
             renderNode: {
               text: (text) => text,
               paragraph: (node, children) => (
-                <p className=" w-2/3 md:1/2 mx-auto mt-10 fadeIn">{children}</p>
+                <p className=" w-2/3 md:1/2 mx-auto mt-10  fadeIn">
+                  {children}
+                </p>
               ),
               "embedded-entry-inline": (node) => {
                 const { data } = node;
@@ -80,34 +92,46 @@ const ProjectDetail = () => {
               },
             },
           })}
-          
-            
-          
-          
-           
+
           <div>
             <div className="flex justify-center mt-8">
               {project.fields.deployedProjectLink && (
-                
-                  <Link
-                    className="text-lg font-bold tracking-tight text-gray-900 dark:text-white mr-5 slideInLeft"
-                    to={project.fields.deployedProjectLink}
-                    target="_blank"
-                  >
-                    <Button>Live version</Button>
-                  </Link>
-               
-              )}
-             
                 <Link
-                  className="text-lg font-bold tracking-tight text-gray-900 dark:text-white ml-5 slideInLeft"
-                  to={project.fields.githubRepoLink}
+                  className="text-lg font-bold tracking-tight text-gray-900 dark:text-white mr-5 slideInLeft"
+                  to={project.fields.deployedProjectLink}
                   target="_blank"
                 >
-                  <Button>Github link</Button>
+                  <Button>Live version</Button>
                 </Link>
-            
+              )}
+
+              <Link
+                className="text-lg font-bold tracking-tight text-gray-900 dark:text-white ml-5 slideInLeft"
+                to={project.fields.githubRepoLink}
+                target="_blank"
+              >
+                <Button>Github link</Button>
+              </Link>
             </div>
+            {project.fields.videoDemoEmbed && (
+              <AnimationOnScroll
+                animateIn="fadeIn"
+                animateOut="fadeOut"
+                animateOnce="true"
+              >
+                <div className="flex justify-center ">
+                  <iframe
+                    width="853"
+                    height="480"
+                    src={getVideoUrl()}
+                    title={project.fields.name}
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </AnimationOnScroll>
+            )}
             <AnimationOnScroll
               animateIn="fadeIn"
               animateOut="fadeOut"
@@ -118,8 +142,9 @@ const ProjectDetail = () => {
               </h2>
             </AnimationOnScroll>
             <ul className="flex flex-col md:flex-row md:flex-wrap justify-evenly">
-              {project.fields.techStack.map((tech) => (
+              {project.fields.techStack.map((tech, index) => (
                 <AnimationOnScroll
+                  key={index}
                   animateIn="slideInLeft"
                   animateOut="fadeOut"
                   animateOnce="true"

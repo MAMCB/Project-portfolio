@@ -21,7 +21,7 @@ const ProjectsCard = ({project}) => {
         marginLeft: "auto",
         marginRight: "auto",
       }}
-      className="  md:max-w-sm"
+      className="w-2/3  md:max-w-sm"
       imgAlt="Meaningful alt text for an image that is not purely decorative"
       imgSrc={project.fields.thumbnail.fields.file.url}
     >

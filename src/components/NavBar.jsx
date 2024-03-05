@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { DarkThemeToggle, Navbar } from "flowbite-react";
 
-const NavBar = () => {
+const NavBar = ({setDarkMode}) => {
+  const handleDarkMode = () => {
+    setDarkMode((previous)=>!previous);
+  }
   return (
     <Navbar fluid rounded>
-      <Navbar.Brand
-        as={Link}
-        
-        href="/"
-      >
+      <Navbar.Brand as={Link} href="/">
         <img
           src="https://avatars.githubusercontent.com/u/96302464?v=4"
           className="mr-3 h-6 sm:h-9 rounded-full w-6 sm:w-9"
@@ -18,7 +17,10 @@ const NavBar = () => {
           Hi I'm Miguel
         </span>
       </Navbar.Brand>
-      <DarkThemeToggle  />
+      <div onClick={handleDarkMode}>
+        <DarkThemeToggle />
+      </div>
+
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Navbar.Link href="/" active>

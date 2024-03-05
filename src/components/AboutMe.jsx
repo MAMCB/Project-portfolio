@@ -17,7 +17,7 @@ const AboutMe = () => {
  return (
    <div>
      {aboutMe && (
-       <div className="h-vh p-10 md:p-4">
+       <div className="h-vh p-10 md:p-4 main-content">
          
            <div className="md:flex-1 md:flex md:items-center md:justify-center fadeIn">
              <img

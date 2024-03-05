@@ -38,12 +38,54 @@ const Resume = () => {
       });
   }, []);
 
-  useEffect(() => {
-    if (resume){
-      console.log(resume.onlineCourses);
-      setOnlineCourses(resume.onlineCourses);}
+  // useEffect(() => {
+  //   if (resume){
+  //     console.log(resume.onlineCourses);
+  //      const onlineCourses = resume.onlineCourses;
+  //     onlineCourses.forEach((course) => {
+  //       console.log(course);
+  //       course.fields.technologiesUsed.forEach((tech) => {
+  //         if(tech.sys.type === "Link"){
+  //           client.getEntry(tech.sys.id).then((response) => {
+  //             console.log(response.fields);
+  //             tech.fields = response.fields;
+  //           });
+  //         }
+  //       });
+
+        
+  //     });
+  //     console.log(onlineCourses);
+  //     setOnlineCourses(onlineCourses);
+  //   }
     
+  // }, [resume]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (resume) {
+        console.log(resume.onlineCourses);
+        const onlineCourses = resume.onlineCourses;
+
+        for (const course of onlineCourses) {
+          console.log(course);
+          for (const tech of course.fields.technologiesUsed) {
+            if (tech.sys.type === "Link") {
+              const response = await client.getEntry(tech.sys.id);
+              console.log(response.fields);
+              tech.fields = response.fields;
+            }
+          }
+        }
+
+        console.log(onlineCourses);
+        setOnlineCourses(onlineCourses);
+      }
+    };
+
+    fetchData();
   }, [resume]);
+
   return (
     <div className="p-10 md:p-4">
       <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">
@@ -127,48 +169,52 @@ const Resume = () => {
                     {course.fields.name}
                   </h5>
                 </AnimationOnScroll>
-                {documentToReactComponents(course.fields.description, {
-                  renderNode: {
-                    text: (text) => text,
-                    paragraph: (node, children) => (
-                      <AnimationOnScroll
-                        animateIn="slideInLeft"
-                        animateOut="fadeOut"
-                        animateOnce="true"
-                      >
-                        <p className="mt-2 text-gray-900 dark:text-white">
-                          {children}
-                        </p>
-                      </AnimationOnScroll>
-                    ),
-                  },
-                })}
                 <AnimationOnScroll
                   animateIn="slideInLeft"
                   animateOut="fadeOut"
                   animateOnce="true"
                 >
-                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white mb-8">
                     By {course.fields.institute}
                   </h5>
                 </AnimationOnScroll>
+                <div className="main-content">
+                  {documentToReactComponents(course.fields.description, {
+                    renderNode: {
+                      text: (text) => text,
+                      paragraph: (node, children) => (
+                        <AnimationOnScroll
+                          animateIn="slideInLeft"
+                          animateOut="fadeOut"
+                          animateOnce="true"
+                        >
+                          <p className="mt-2 text-gray-900 dark:text-white">
+                            {children}
+                          </p>
+                        </AnimationOnScroll>
+                      ),
+                    },
+                  })}
+                </div>
+
                 <AnimationOnScroll
                   animateIn="slideInLeft"
                   animateOut="fadeOut"
                   animateOnce="true"
                 >
-                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-8">
                     Skills acquired:
                   </h5>
                 </AnimationOnScroll>
-                <ul>
+                <ul className="mt-4">
                   {course.fields.newSkills.map((skill) => (
                     <AnimationOnScroll
+                      key={skill}
                       animateIn="slideInLeft"
                       animateOut="fadeOut"
                       animateOnce="true"
                     >
-                      <li key={skill}>{skill}</li>
+                      <li>{skill}</li>
                     </AnimationOnScroll>
                   ))}
                 </ul>
@@ -181,22 +227,20 @@ const Resume = () => {
                     Technical Skills
                   </h3>
                 </AnimationOnScroll>
-                <ul className=" mx-auto flex flex-col justify-center p-8 text-center">
+                <ul className=" mx-auto flex flex-col md:flex-row justify-center p-8 text-center">
                   {course.fields.technologiesUsed.map((skill) => (
                     <AnimationOnScroll
+                      key={skill.sys.id}
                       animateIn="slideInLeft"
                       animateOut="fadeOut"
                       animateOnce="true"
                     >
-                      <li
-                        key={skill.fields.name}
-                        className="m-4 background w-64"
-                      >
+                      <li className="m-4 background w-64">
                         <div className="flex justify-evenly">
-                          <h2 className="mr-4">{skill.fields.name}</h2>
+                          <h2 className="mr-4">{skill.fields?.name}</h2>
                           <img
-                            src={skill.fields.logo.fields.file.url}
-                            alt={skill.fields.name}
+                            src={skill.fields?.logo.fields.file.url}
+                            alt={skill.fields?.name}
                             className=" h-10"
                           />
                         </div>

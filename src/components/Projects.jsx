@@ -6,8 +6,9 @@ import ProjectsCard from './ProjectsCard'
 import { Tabs } from "flowbite-react";
 import { HiAdjustments, HiClipboardList, HiUserCircle } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
-import { Carousel } from 'flowbite-react';
+import { Carousel,Card,Button } from 'flowbite-react';
 import { Label, Select } from "flowbite-react";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
 
 const Projects = () => {
@@ -92,7 +93,7 @@ const Projects = () => {
           <div>
             {webProjectsToShow.length > 0 ? (
               <Carousel
-                className="bg-gray-400 dark:bg-gray-600 "
+                className="bg-gray-400 dark:bg-gray-600 project-carousel "
                 slide={true}
                 controls={true}
                 indicators={true}
@@ -137,7 +138,7 @@ const Projects = () => {
           <div>
             {gameProjectsToShow.length > 0 ? (
               <Carousel
-                className="bg-gray-400 dark:bg-gray-600 "
+                className="bg-gray-400 dark:bg-gray-600 project-carousel "
                 slide={true}
                 controls={true}
                 indicators={true}
@@ -150,18 +151,91 @@ const Projects = () => {
               <p className="mb-2 mx-auto p-10 text-black dark:text-white">
                 No project found with that technology
               </p>
-            
             )}
           </div>
         </Tabs.Item>
         <Tabs.Item title="Articles" icon={HiAdjustments}>
-          This is{" "}
-          <span className="font-medium text-gray-800 dark:text-white">
-            Settings tab's associated content
-          </span>
-          . Clicking another tab will toggle the visibility of this one for the
-          next. The tab JavaScript swaps classes to control the content
-          visibility and styling.
+          <div>
+            {documents.length > 0 ? (
+              documents
+                .filter((document) => document.fields.portfolioArticle === true)
+                .map((document) => (
+                  <Carousel
+                    className="bg-gray-400 dark:bg-gray-600 article-carousel"
+                    slide={true}
+                    controls={true}
+                    indicators={true}
+                  >
+                    <Card
+                      className="w-2/3 max-w-xl mx-auto mt-10 fadeIn"
+                      key={document.sys.id}
+                    >
+                      <img
+                        src={document.fields.thumbnail.fields.file.url}
+                        alt={document.fields.name}
+                        className="w-1/2 mx-auto rounded-lg"
+                      />
+                      <h2 className="mx-auto">{document.fields.name}</h2>{" "}
+                      {documentToReactComponents(
+                        document.fields.richDescription,
+                        {
+                          renderNode: {
+                            text: (text) => text,
+                            paragraph: (node, children) => (
+                              <p className=" w-2/3 md:1/2 mx-auto text-center   fadeIn">
+                                {children}
+                              </p>
+                            ),
+                            "embedded-entry-inline": (node) => {
+                              const { data } = node;
+                              const { target, title } = data.target.fields;
+                              return (
+                                <div>
+                                  <a
+                                    href={target}
+                                    title={title}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {title}
+                                  </a>
+                                </div>
+                              );
+                            },
+                            // Add the 'a' tag renderer to handle links
+                            hyperlink: (node, children) => {
+                              const { data } = node;
+                              const { uri } = data;
+                              return (
+                                <a
+                                  href={uri}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {children}
+                                </a>
+                              );
+                            },
+                          },
+                        }
+                      )}
+                      <a
+                        className="mx-auto"
+                        href={document.fields.pdf.fields.file.url}
+                        target="_blank"
+                        download
+                      >
+                        <Button>Open article</Button>
+                      </a>
+                    </Card>
+                  </Carousel>
+                ))
+            ) : (
+              <p className="mb-2 mx-auto p-10 text-black dark:text-white">
+                No articles found
+              </p>
+            )}
+          </div>
         </Tabs.Item>
       </Tabs>
     </div>

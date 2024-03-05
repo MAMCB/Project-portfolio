@@ -36,14 +36,14 @@ const ProjectDetail = () => {
           {project.fields.relatedImages.length > 0 && (
             <div className="mt-8">
               <Carousel
-                className="h-96 sm:h-64 xl:h-80 2xl:h-96 bg-gray-400 dark:bg-gray-600 fadeIn "
+                className="details-carousel bg-gray-400 dark:bg-gray-600 fadeIn "
                 slide={true}
                 controls={true}
                 indicators={true}
               >
                 {project.fields.relatedImages.map((image) => (
                   <Card
-                    className="w-2/3 max-w-xl"
+                    className="w-2/3 max-w-3xl"
                     key={image.fields.title}
                     imgSrc={image.fields.file.url}
                   >
@@ -119,7 +119,7 @@ const ProjectDetail = () => {
                 animateOut="fadeOut"
                 animateOnce="true"
               >
-                <div className="flex justify-center ">
+                <div className="flex justify-center mt-8 ">
                   <iframe
                     width="853"
                     height="480"

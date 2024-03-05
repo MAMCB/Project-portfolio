@@ -37,6 +37,13 @@ const Resume = () => {
         });
       });
   }, []);
+
+  useEffect(() => {
+    if (resume){
+      console.log(resume.onlineCourses);
+      setOnlineCourses(resume.onlineCourses);}
+    
+  }, [resume]);
   return (
     <div className="p-10 md:p-4">
       <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">
@@ -108,13 +115,97 @@ const Resume = () => {
           )}
         </Tabs.Item>
         <Tabs.Item title="Online courses" icon={MdDashboard}>
-          This is{" "}
-          <span className="font-medium text-gray-800 dark:text-white">
-            Dashboard tab's associated content
-          </span>
-          . Clicking another tab will toggle the visibility of this one for the
-          next. The tab JavaScript swaps classes to control the content
-          visibility and styling.
+          {onlineCourses.length > 0 &&
+            onlineCourses.map((course) => (
+              <div key={course.fields.name} className="background">
+                <AnimationOnScroll
+                  animateIn="slideInLeft"
+                  animateOut="fadeOut"
+                  animateOnce="true"
+                >
+                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {course.fields.name}
+                  </h5>
+                </AnimationOnScroll>
+                {documentToReactComponents(course.fields.description, {
+                  renderNode: {
+                    text: (text) => text,
+                    paragraph: (node, children) => (
+                      <AnimationOnScroll
+                        animateIn="slideInLeft"
+                        animateOut="fadeOut"
+                        animateOnce="true"
+                      >
+                        <p className="mt-2 text-gray-900 dark:text-white">
+                          {children}
+                        </p>
+                      </AnimationOnScroll>
+                    ),
+                  },
+                })}
+                <AnimationOnScroll
+                  animateIn="slideInLeft"
+                  animateOut="fadeOut"
+                  animateOnce="true"
+                >
+                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    By {course.fields.institute}
+                  </h5>
+                </AnimationOnScroll>
+                <AnimationOnScroll
+                  animateIn="slideInLeft"
+                  animateOut="fadeOut"
+                  animateOnce="true"
+                >
+                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    Skills acquired:
+                  </h5>
+                </AnimationOnScroll>
+                <ul>
+                  {course.fields.newSkills.map((skill) => (
+                    <AnimationOnScroll
+                      animateIn="slideInLeft"
+                      animateOut="fadeOut"
+                      animateOnce="true"
+                    >
+                      <li key={skill}>{skill}</li>
+                    </AnimationOnScroll>
+                  ))}
+                </ul>
+                <AnimationOnScroll
+                  animateIn="slideInLeft"
+                  animateOut="fadeOut"
+                  animateOnce="true"
+                >
+                  <h3 className=" mx-auto text-center mt-20 mb-10 pb-2  text-lg font-bold tracking-tight text-gray-900 dark:text-white ">
+                    Technical Skills
+                  </h3>
+                </AnimationOnScroll>
+                <ul className=" mx-auto flex flex-col justify-center p-8 text-center">
+                  {course.fields.technologiesUsed.map((skill) => (
+                    <AnimationOnScroll
+                      animateIn="slideInLeft"
+                      animateOut="fadeOut"
+                      animateOnce="true"
+                    >
+                      <li
+                        key={skill.fields.name}
+                        className="m-4 background w-64"
+                      >
+                        <div className="flex justify-evenly">
+                          <h2 className="mr-4">{skill.fields.name}</h2>
+                          <img
+                            src={skill.fields.logo.fields.file.url}
+                            alt={skill.fields.name}
+                            className=" h-10"
+                          />
+                        </div>
+                      </li>
+                    </AnimationOnScroll>
+                  ))}
+                </ul>
+              </div>
+            ))}
         </Tabs.Item>
         <Tabs.Item title="Certifications" icon={HiAdjustments}>
           <div className="carousel-container">

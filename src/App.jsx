@@ -10,14 +10,16 @@ import Contacts from "./components/Contacts";
 import AboutPortfolio from "./components/AboutPortfolio";
 import CanvasComponent from "./components/CanvasComponent";
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
+import { useState } from "react";
 
 import "./App.css";
 
 function App() {
+  const [darkMode, setDarkMode] = useState(true);
   return (
     <>
       <Flowbite>
-        <NavBar />
+        <NavBar setDarkMode={setDarkMode}/>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<CanvasComponent />} />
@@ -26,7 +28,7 @@ function App() {
             <Route path="/projects/:id" element={<ProjectDetail />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="/contacts" element={<Contacts />} />
-            <Route path="/about-portfolio" element={<AboutPortfolio />} />
+            <Route path="/about-portfolio" element={<AboutPortfolio darkMode={darkMode} />} />
           </Routes>
         </BrowserRouter>
         <MyFooter />

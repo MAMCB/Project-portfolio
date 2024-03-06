@@ -26,7 +26,7 @@ const ProjectDetail = () => {
   };
 
   return (
-    <div className="h-full p-8">
+    <div className="h-full p-2 md:p-8">
       {project && (
         <>
           <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white fadeIn ">
@@ -43,7 +43,7 @@ const ProjectDetail = () => {
               >
                 {project.fields.relatedImages.map((image) => (
                   <Card
-                    className="w-2/3 max-w-3xl"
+                    className="md:w-2/3 max-w-3xl"
                     key={image.fields.title}
                     imgSrc={image.fields.file.url}
                   >
@@ -60,7 +60,7 @@ const ProjectDetail = () => {
             renderNode: {
               text: (text) => text,
               paragraph: (node, children) => (
-                <p className=" w-2/3 md:1/2 mx-auto mt-10  fadeIn">
+                <p className=" p-2 md:1/2 mx-auto mt-10  fadeIn">
                   {children}
                 </p>
               ),

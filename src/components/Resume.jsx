@@ -87,7 +87,7 @@ const Resume = () => {
   }, [resume]);
 
   return (
-    <div className="p-10 md:p-4">
+    <div className="p-2 md:p-4">
       <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">
         My CV
       </h1>
@@ -156,10 +156,10 @@ const Resume = () => {
             </div>
           )}
         </Tabs.Item>
-        <Tabs.Item title="Online courses" icon={MdDashboard}>
+        <Tabs.Item title="Online courses"  icon={MdDashboard}>
           {onlineCourses.length > 0 &&
             onlineCourses.map((course) => (
-              <div key={course.fields.name} className="background">
+              <div key={course.fields.name} className="background mt-4">
                 <AnimationOnScroll
                   animateIn="slideInLeft"
                   animateOut="fadeOut"
@@ -227,7 +227,7 @@ const Resume = () => {
                     Technical Skills
                   </h3>
                 </AnimationOnScroll>
-                <ul className=" mx-auto flex flex-col md:flex-row justify-center p-8 text-center">
+                <ul className=" mx-auto flex flex-col md:flex-row md:justify-center   md:p-8 text-center">
                   {course.fields.technologiesUsed.map((skill) => (
                     <AnimationOnScroll
                       key={skill.sys.id}
@@ -235,7 +235,7 @@ const Resume = () => {
                       animateOut="fadeOut"
                       animateOnce="true"
                     >
-                      <li className="m-4 background w-64">
+                      <li className="mt-4 md:mx-auto md:ml-4 background w-64">
                         <div className="flex justify-evenly">
                           <h2 className="mr-4">{skill.fields?.name}</h2>
                           <img
@@ -295,7 +295,7 @@ const Resume = () => {
         </Tabs.Item>
         <Tabs.Item title="Skills" icon={HiClipboardList}>
           {resume && (
-            <div className="md:w-1/2 mx-auto md:flex">
+            <div className="md:w-2/3 mx-auto md:flex">
               <div>
                 <AnimationOnScroll
                   animateIn="slideInLeft"
@@ -315,14 +315,14 @@ const Resume = () => {
                     >
                       <li
                         key={skill.fields.name}
-                        className="m-4 background w-64"
+                        className="m-4 background w-52  md:w-64"
                       >
-                        <div className="flex justify-evenly">
-                          <h2 className="mr-4">{skill.fields.name}</h2>
+                        <div className="flex  justify-evenly">
+                          <h2 className="mr-4 self-center">{skill.fields.name}</h2>
                           <img
                             src={skill.fields.logo.fields.file.url}
                             alt={skill.fields.name}
-                            className=" h-10"
+                            className=" h-6 md:h-10"
                           />
                         </div>
                       </li>

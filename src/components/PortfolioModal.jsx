@@ -2,9 +2,11 @@ import { Modal,Button,Card } from "flowbite-react";
 import { Link } from "react-router-dom";
 import Banner from "../../public/Banner.png"
 import WBS from "../../public/WBS-Certificate.png"
+import { Scroll } from "@react-three/drei";
 
 const PortfolioModal = ({openModal,modalPlacement,handleClose}) => {
   return (
+   
     <Modal
       size={"6xl"}
       show={openModal}
@@ -55,6 +57,7 @@ const PortfolioModal = ({openModal,modalPlacement,handleClose}) => {
         </Button>
       </Modal.Footer>
     </Modal>
+   
   );
 }
 

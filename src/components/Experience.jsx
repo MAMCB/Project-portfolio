@@ -1,30 +1,51 @@
-import { OrbitControls,ScrollControls } from "@react-three/drei"
-import { Island } from "./Island"
-import UI from "./UI";
-import { PerspectiveCamera } from "@react-three/drei";
-import LogCameraPosition from "./LogCameraPosition";
+import { Environment, OrbitControls,ScrollControls, Sky } from "@react-three/drei"
+import { Canvas } from "@react-three/fiber";
+import ExperienceUI from "./ExperienceUI";
+import { Avatar } from "../Avatar";
+import PortfolioModal from "./PortfolioModal";
+import { useState } from "react";
 
 
 
-const Experience = () => {
+const Experience = ({darkMode}) => {
+   const [openModal, setOpenModal] = useState(false);
+   const [modalPlacement, setModalPlacement] = useState("center");
+
+   const handleClose = (value) => {
+     setOpenModal(value);
+   };
   return (
     <>
-      <PerspectiveCamera
-        position={[1.4233913844722013, -5.7173277105425128, -6.288373349251435]} // Set the initial position of the camera
-        rotation={[3.0894158228185757,-0.8048316906356017,3.1039716789266847]} // Set the initial rotation of the camera
-        fov={75}
-        aspect={window.innerWidth / window.innerHeight}
-        near={0.1}
-        far={100}
-      >
-        <ambientLight intensity={4} />
-        <OrbitControls enableZoom={false} />
-        <ScrollControls pages={3}>
-          <Island />
-          <UI />
-        </ScrollControls>
-        <LogCameraPosition />
-      </PerspectiveCamera>
+      <div className="App">
+        <Canvas camera={{ position: [0, 2, 5], fov: 30 }}>
+          {!darkMode ? (
+            <Sky sunPosition={[1, 1, 1]} />
+          ) : (
+            <Sky sunPosition={[0, 0, 0]} />
+          )}
+          <ambientLight intensity={1} />
+          <OrbitControls />
+          <ScrollControls pages={3}>
+            <ExperienceUI handleClose={handleClose} />
+          </ScrollControls>
+          <group position-y={-1}>
+            <Avatar />
+            <mesh scale={[0.8, 0.5, 0.8]} position-y={0.2}>
+              <boxGeometry />
+              <meshStandardMaterial color="black" />
+            </mesh>
+            <mesh scale={5} rotation-x={-Math.PI * 0.5}>
+              <planeGeometry />
+              <meshStandardMaterial color="white" />
+            </mesh>
+          </group>
+        </Canvas>
+        <PortfolioModal
+          openModal={openModal}
+          handleClose={handleClose}
+          modalPlacement={modalPlacement}
+        />
+      </div>
     </>
   );
 }

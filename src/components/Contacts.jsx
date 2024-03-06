@@ -54,8 +54,8 @@ const Contacts = () => {
       <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">
         Let's get in touch
       </h1>
-      <div className="flex flex-col md:flex-row">
-        <form className="flex w-2/3 md:w-1/2 flex-col mx-auto gap-4">
+      <div className="flex flex-col mb-4 md:flex-row">
+        <form className="flex w-4/5 md:w-1/2 flex-col mx-auto gap-4">
           <Label className="mb-4 slideInLeft">
             <span className="text-gray-900 dark:text-white">Name</span>
             <TextInput

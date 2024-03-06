@@ -13,11 +13,10 @@ const PortfolioModal = ({openModal,modalPlacement,handleClose}) => {
     >
       <Modal.Header>Welcome to my portfolio</Modal.Header>
       <Modal.Body>
-        <div className=" p-6 flex flex-wrap justify-evenly">
-          <Link to="/projects" className="modalLink">
+        <div className=" p-6 flex flex-wrap justify-evenly ">
+          <Link to="/projects" className="modalLink rounded-2xl">
             <Card className=" w-80 h-80">
               <div className="h-40 p-0">
-                
                 <img
                   src={Banner}
                   className=" h-20 w-80"
@@ -28,7 +27,7 @@ const PortfolioModal = ({openModal,modalPlacement,handleClose}) => {
               <h2>My projects</h2>
             </Card>
           </Link>
-          <Link to="/about" className="modalLink">
+          <Link to="/about" className="modalLink rounded-2xl">
             <Card className="w-80 h-80">
               <img
                 src="https://avatars.githubusercontent.com/u/96302464?v=4"
@@ -38,7 +37,7 @@ const PortfolioModal = ({openModal,modalPlacement,handleClose}) => {
               <h2>About me</h2>
             </Card>
           </Link>
-          <Link to="/resume" className="modalLink">
+          <Link to="/resume" className="modalLink rounded-2xl">
             <Card className=" w-80 h-80">
               <img
                 src={WBS}

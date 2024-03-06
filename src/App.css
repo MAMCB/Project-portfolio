@@ -53,11 +53,31 @@ tr td, .background {
     transform: translateX(0);
   }
 }
+@media only screen and (min-width:620px)and (max-width: 425px)
+{
+  .canvas{
+  width:70rem;
+  height: 30rem;
+}
+  
 
+}
+
+@media only screen and (min-width: 466px) and (max-width: 1439px)
+{
+  .canvas{
+  width:30rem;
+  height: 30rem;
+}
+
+}
 .canvas {
   width: 70rem;
   height: 30rem;
 }
+
+
+
 
 .App {
   height: 100vh;

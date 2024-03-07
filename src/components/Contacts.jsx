@@ -7,16 +7,20 @@ import linkedin from "../../public/LI-In-Bug.png";
 import githubWhite from "../../public/github-mark-white.png";
 import { Link } from 'react-router-dom';
 import {Button,Label,Select,Textarea,TextInput} from "flowbite-react";
+import  { useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 const Contacts = () => {
       const [resume, setResume] = useState(null);
       const [message, setMessage] = useState({
-        name: "",
-        email: "",
-        interestedIn: "",
+        from_name: "",
+        reply_to: "",
+        interested_in: "",
         message: "",
+        to_name: "Miguel Borges",
       
       });
+       const form = useRef();
 
       useEffect(() => {
         client.getEntry("21zCepn2tjATuOEhueihGV").then((response) => {
@@ -32,15 +36,34 @@ const Contacts = () => {
       const handleSubmit = (e) => {
         e.preventDefault();
         console.log(message);
-        window.open(`mailto:${resume.email}?subject=${message.interestedIn}&body=${message.message}`)
-        window.location.reload();
+        emailjs
+          .sendForm(
+            import.meta.env.VITE_EMAILJS_SERVICE_ID,
+            import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+            form.current,
+            {
+              publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+            }
+          )
+          .then(
+            () => {
+              console.log("SUCCESS!");
+              alert("Message sent successfully!");
+              window.location.reload();
+            },
+            (error) => {
+              console.log("FAILED...", error.text);
+            }
+          );
+        //window.open(`mailto:${resume.email}?subject=${message.interestedIn}&body=${message.message}`)
+        
       };
 
       const handleValidation = () => {
         if (
-          message.name === "" ||
-          message.email === "" ||
-          message.interestedIn === "" ||
+          message.from_name === "" ||
+          message.reply_to === "" ||
+          message.interested_in === "" ||
           message.message === ""
         ) {
           return true;
@@ -55,11 +78,11 @@ const Contacts = () => {
         Let's get in touch
       </h1>
       <div className="flex flex-col mb-4 md:flex-row">
-        <form className="flex w-4/5 md:w-1/2 flex-col mx-auto gap-4">
+        <form ref={form} className="flex w-4/5 md:w-1/2 flex-col mx-auto gap-4">
           <Label className="mb-4 slideInLeft">
             <span className="text-gray-900 dark:text-white">Name</span>
             <TextInput
-              name="name"
+              name="from_name"
               placeholder="Name"
               className="mt-4"
               onChange={handleChange}
@@ -68,7 +91,7 @@ const Contacts = () => {
           <Label className="mb-4 slideInLeft">
             <span className="text-gray-900 dark:text-white">Email</span>
             <TextInput
-              name="email"
+              name="reply_to"
               placeholder="Email"
               className="mt-4"
               onChange={handleChange}
@@ -79,7 +102,7 @@ const Contacts = () => {
               You are interested in
             </span>
             <Select
-              name="interestedIn"
+              name="interested_in"
               className="mt-4"
               onChange={handleChange}
             >
@@ -106,7 +129,9 @@ const Contacts = () => {
               onChange={handleChange}
             />
           </Label>
+          <input type="hidden" name="to_name" value="Miguel Borges" />
           <Button
+          type='submit'
             className="w-1/2 mx-auto slideInLeft"
             disabled={handleValidation()}
             onClick={handleSubmit}

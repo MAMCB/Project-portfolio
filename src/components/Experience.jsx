@@ -4,6 +4,7 @@ import ExperienceUI from "./ExperienceUI";
 import { Avatar } from "../Avatar";
 import PortfolioModal from "./PortfolioModal";
 import { useState } from "react";
+import { Scene } from "./Scene";
 
 
 
@@ -23,6 +24,7 @@ const Experience = ({darkMode}) => {
           ) : (
             <Sky sunPosition={[0, 0, 0]} />
           )}
+          <directionalLight intensity={2} />
           <ambientLight intensity={1} />
           <OrbitControls />
           <ScrollControls pages={3}>
@@ -34,10 +36,7 @@ const Experience = ({darkMode}) => {
               <boxGeometry />
               <meshStandardMaterial color="black" />
             </mesh>
-            <mesh scale={5} rotation-x={-Math.PI * 0.5}>
-              <planeGeometry />
-              <meshStandardMaterial color="white" />
-            </mesh>
+            <Scene />
           </group>
         </Canvas>
         <PortfolioModal

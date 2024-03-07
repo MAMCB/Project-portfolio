@@ -5,6 +5,7 @@ import { Avatar } from "../Avatar";
 import PortfolioModal from "./PortfolioModal";
 import { useState } from "react";
 import { Scene } from "./Scene";
+import { Chair } from "./Chair";
 
 
 
@@ -30,12 +31,9 @@ const Experience = ({darkMode}) => {
           <ScrollControls pages={3}>
             <ExperienceUI handleClose={handleClose} />
           </ScrollControls>
-          <group position-y={-1}>
+          <group position-y={-1} rotation-y={-Math.PI-1}>
             <Avatar />
-            <mesh scale={[0.8, 0.5, 0.8]} position-y={0.2}>
-              <boxGeometry />
-              <meshStandardMaterial color="black" />
-            </mesh>
+            <Chair />
             <Scene />
           </group>
         </Canvas>

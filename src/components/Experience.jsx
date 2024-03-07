@@ -6,6 +6,8 @@ import PortfolioModal from "./PortfolioModal";
 import { useState } from "react";
 import { Scene } from "./Scene";
 import { Chair } from "./Chair";
+import { Suspense } from "react";
+import Loading from "./Loading";
 
 
 
@@ -19,24 +21,26 @@ const Experience = ({darkMode}) => {
   return (
     <>
       <div className="App">
-        <Canvas camera={{ position: [0, 2, 5], fov: 30 }}>
-          {!darkMode ? (
-            <Sky sunPosition={[1, 1, 1]} />
-          ) : (
-            <Sky sunPosition={[0, 0, 0]} />
-          )}
-          <directionalLight intensity={2} />
-          <ambientLight intensity={1} />
-          <OrbitControls />
-          <ScrollControls pages={3}>
-            <ExperienceUI handleClose={handleClose} />
-          </ScrollControls>
-          <group position-y={-1} rotation-y={-Math.PI-1}>
-            <Avatar />
-            <Chair />
-            <Scene />
-          </group>
-        </Canvas>
+        <Suspense fallback={<Loading/>}>
+          <Canvas camera={{ position: [0, 2, 5], fov: 30 }}>
+            {!darkMode ? (
+              <Sky sunPosition={[1, 1, 1]} />
+            ) : (
+              <Sky sunPosition={[0, 0, 0]} />
+            )}
+            <directionalLight intensity={2.5} />
+            <ambientLight intensity={1.5} />
+            <OrbitControls />
+            <ScrollControls pages={3}>
+              <ExperienceUI handleClose={handleClose} />
+            </ScrollControls>
+            <group position-y={-1} rotation-y={-Math.PI - 1}>
+              <Avatar />
+              <Chair />
+              <Scene />
+            </group>
+          </Canvas>
+        </Suspense>
         <PortfolioModal
           openModal={openModal}
           handleClose={handleClose}

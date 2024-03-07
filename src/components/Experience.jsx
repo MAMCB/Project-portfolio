@@ -21,7 +21,7 @@ const Experience = ({darkMode}) => {
   return (
     <>
       <div className="App">
-        <Suspense fallback={<Loading/>}>
+        <Suspense fallback={<Loading handleClose={handleClose}/>}>
           <Canvas camera={{ position: [0, 2, 5], fov: 30 }}>
             {!darkMode ? (
               <Sky sunPosition={[1, 1, 1]} />

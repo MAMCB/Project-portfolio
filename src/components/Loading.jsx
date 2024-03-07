@@ -9,8 +9,8 @@ import { Spinner } from "flowbite-react";
 const Loading = ({handleClose}) => {
     const { active, progress, errors, item, loaded, total } = useProgress();
   return (
-    <Canvas>
-      <Html center className='text-center'>
+    <Canvas >
+      <Html center className='text-center w-screen '>
         <img src={Banner} alt="Personal banner" className="mb-4 fadeIn" />
         <h1
           className="text-lg mb-4
@@ -28,7 +28,7 @@ const Loading = ({handleClose}) => {
         </p>
         <Button
           size="text-2xl"
-          className="w-40 h-12  mt-10 ml-10 md:w-80 md:h-24 md:self-center slideInLeft"
+          className="w-40 h-12 mx-auto  mt-10 mb-16  md:w-80 md:h-24 md:self-center slideInLeft"
           onClick={() => handleClose(true)}
         >
           I don't want to wait

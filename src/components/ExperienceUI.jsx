@@ -6,10 +6,14 @@ import { useState } from 'react';
 
 
 const ExperienceUI = ({handleClose}) => {
+  const [open, setOpen] = useState(true);
+  const handleWindow = () => {
+    setOpen(!open);
+  };
     
   return (
     <Scroll html>
-      <div className=" p-2 background ">
+      {open && <div className=" p-2 background ">
         <h1 className="text-2xl md:text-4xl   font-bold ml-10 dark:text-white slideInLeft">
           I'm Miguel a Software Developer
         </h1>
@@ -26,7 +30,8 @@ const ExperienceUI = ({handleClose}) => {
         </Button>
 
        
-      </div>
+      </div>}
+      <Button className={open && "ml-2"} color="gray"  outline onClick={handleWindow}>{open?"Close":"Open"}</Button>
     </Scroll>
   );
 }

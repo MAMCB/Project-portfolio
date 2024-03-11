@@ -1,6 +1,7 @@
 import React from 'react'
 import {useState,useEffect} from 'react'
-import axios from 'axios'
+import { Suspense } from 'react'
+import CanvasComponent from './CanvasComponent'
 import client from '../contentfulClient'
 import ProjectsCard from './ProjectsCard'
 import { Tabs } from "flowbite-react";
@@ -74,6 +75,7 @@ const Projects = () => {
       <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">
         My projects
       </h1>
+
       <Tabs aria-label="Default tabs" style="default">
         <Tabs.Item active title="Web Applications" icon={HiUserCircle}>
           <div className="max-w-md mx-auto mb-4">
@@ -92,18 +94,20 @@ const Projects = () => {
           </div>
           <div>
             {webProjectsToShow.length > 0 ? (
-              <Carousel
-                className="bg-gray-400 dark:bg-gray-600 project-carousel "
-                slide={true}
-                controls={true}
-                indicators={true}
-              >
-                {webProjectsToShow.map((project) => (
-                  <ProjectsCard key={project.sys.id} project={project} />
-                ))}
-              </Carousel>
+              <Suspense fallback={<CanvasComponent />}>
+                <Carousel
+                  className="bg-gray-400 dark:bg-gray-600 project-carousel "
+                  slide={true}
+                  controls={true}
+                  indicators={true}
+                >
+                  {webProjectsToShow.map((project) => (
+                    <ProjectsCard key={project.sys.id} project={project} />
+                  ))}
+                </Carousel>
+              </Suspense>
             ) : (
-              <p className="mb-2 mx-auto p-10 text-black dark:text-white">
+              <p className="mb-2 mx-auto text-center p-10 text-black dark:text-white details-carousel">
                 No project found with that technology
               </p>
             )}
@@ -137,18 +141,20 @@ const Projects = () => {
           </div>
           <div>
             {gameProjectsToShow.length > 0 ? (
-              <Carousel
-                className="bg-gray-400 dark:bg-gray-600 project-carousel "
-                slide={true}
-                controls={true}
-                indicators={true}
-              >
-                {gameProjectsToShow.map((project) => (
-                  <ProjectsCard key={project.sys.id} project={project} />
-                ))}
-              </Carousel>
+              <Suspense fallback={<CanvasComponent />}>
+                <Carousel
+                  className="bg-gray-400 dark:bg-gray-600 project-carousel "
+                  slide={true}
+                  controls={true}
+                  indicators={true}
+                >
+                  {gameProjectsToShow.map((project) => (
+                    <ProjectsCard key={project.sys.id} project={project} />
+                  ))}
+                </Carousel>
+              </Suspense>
             ) : (
-              <p className="mb-2 mx-auto p-10 text-black dark:text-white">
+              <p className="mb-2 text-center mx-auto p-10 text-black dark:text-white details-carousel">
                 No project found with that technology
               </p>
             )}
@@ -160,75 +166,77 @@ const Projects = () => {
               documents
                 .filter((document) => document.fields.portfolioArticle === true)
                 .map((document) => (
-                  <Carousel
-                    className="bg-gray-400 dark:bg-gray-600 article-carousel"
-                    slide={true}
-                    controls={true}
-                    indicators={true}
-                  >
-                    <Card
-                      className="w-2/3 max-w-xl mx-auto mt-10 fadeIn"
-                      key={document.sys.id}
+                  <Suspense fallback={<CanvasComponent />}>
+                    <Carousel
+                      className="bg-gray-400 dark:bg-gray-600 article-carousel"
+                      slide={true}
+                      controls={true}
+                      indicators={true}
                     >
-                      <img
-                        src={document.fields.thumbnail.fields.file.url}
-                        alt={document.fields.name}
-                        className="w-1/2 mx-auto rounded-lg"
-                      />
-                      <h2 className="mx-auto">{document.fields.name}</h2>{" "}
-                      {documentToReactComponents(
-                        document.fields.richDescription,
-                        {
-                          renderNode: {
-                            text: (text) => text,
-                            paragraph: (node, children) => (
-                              <p className=" w-2/3 md:1/2 mx-auto text-center   fadeIn">
-                                {children}
-                              </p>
-                            ),
-                            "embedded-entry-inline": (node) => {
-                              const { data } = node;
-                              const { target, title } = data.target.fields;
-                              return (
-                                <div>
+                      <Card
+                        className="w-2/3 max-w-xl mx-auto mt-10 fadeIn"
+                        key={document.sys.id}
+                      >
+                        <img
+                          src={document.fields.thumbnail.fields.file.url}
+                          alt={document.fields.name}
+                          className="w-1/2 mx-auto rounded-lg"
+                        />
+                        <h2 className="mx-auto">{document.fields.name}</h2>{" "}
+                        {documentToReactComponents(
+                          document.fields.richDescription,
+                          {
+                            renderNode: {
+                              text: (text) => text,
+                              paragraph: (node, children) => (
+                                <p className=" w-2/3 md:1/2 mx-auto text-center   fadeIn">
+                                  {children}
+                                </p>
+                              ),
+                              "embedded-entry-inline": (node) => {
+                                const { data } = node;
+                                const { target, title } = data.target.fields;
+                                return (
+                                  <div>
+                                    <a
+                                      href={target}
+                                      title={title}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      {title}
+                                    </a>
+                                  </div>
+                                );
+                              },
+                              // Add the 'a' tag renderer to handle links
+                              hyperlink: (node, children) => {
+                                const { data } = node;
+                                const { uri } = data;
+                                return (
                                   <a
-                                    href={target}
-                                    title={title}
+                                    href={uri}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                   >
-                                    {title}
+                                    {children}
                                   </a>
-                                </div>
-                              );
+                                );
+                              },
                             },
-                            // Add the 'a' tag renderer to handle links
-                            hyperlink: (node, children) => {
-                              const { data } = node;
-                              const { uri } = data;
-                              return (
-                                <a
-                                  href={uri}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {children}
-                                </a>
-                              );
-                            },
-                          },
-                        }
-                      )}
-                      <a
-                        className="mx-auto"
-                        href={document.fields.pdf.fields.file.url}
-                        target="_blank"
-                        download
-                      >
-                        <Button>Open article</Button>
-                      </a>
-                    </Card>
-                  </Carousel>
+                          }
+                        )}
+                        <a
+                          className="mx-auto"
+                          href={document.fields.pdf.fields.file.url}
+                          target="_blank"
+                          download
+                        >
+                          <Button>Open article</Button>
+                        </a>
+                      </Card>
+                    </Carousel>
+                  </Suspense>
                 ))
             ) : (
               <p className="mb-2 mx-auto p-10 text-black dark:text-white">

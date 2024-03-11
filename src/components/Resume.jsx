@@ -7,6 +7,7 @@ import { MdDashboard } from "react-icons/md";
 import client from "../contentfulClient";
 import { Button, Card, Carousel } from "flowbite-react";
 import { AnimationOnScroll } from "react-animation-on-scroll";
+import CanvasComponent from "./CanvasComponent";
 
 const Resume = () => {
   const [resume, setResume] = useState(null);
@@ -93,7 +94,7 @@ const Resume = () => {
       </h1>
       <Tabs aria-label="Default tabs" style="default">
         <Tabs.Item active title="CV" icon={HiUserCircle}>
-          {resume && (
+          {resume ? (
             <div className="md:w-1/2 mx-auto">
               <h2 className=" mx-auto text-center p-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white fadeIn ">
                 {resume.name}
@@ -154,7 +155,7 @@ const Resume = () => {
                 },
               })}
             </div>
-          )}
+          ): <CanvasComponent/>}
         </Tabs.Item>
         <Tabs.Item title="Online courses"  icon={MdDashboard}>
           {onlineCourses.length > 0 &&

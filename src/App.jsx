@@ -33,6 +33,7 @@ function App() {
               path="/about-portfolio"
               element={<AboutPortfolio darkMode={darkMode} />}
             />
+            <Route path="/canvas" element={<CanvasComponent />} />
           </Routes>
         </BrowserRouter>
         <MyFooter />

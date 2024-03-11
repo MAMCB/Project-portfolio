@@ -10,8 +10,8 @@ const Loading = ({handleClose}) => {
     const { active, progress, errors, item, loaded, total } = useProgress();
   return (
     <Canvas className='z-0' >
-      <Html center className='text-center w-screen '>
-        <img src={Banner} alt="Personal banner" className="mb-4 mx-auto fadeIn " />
+      <Html center className='text-center w-screen p-8 '>
+        <img src={Banner} alt="Personal banner" className="mb-4 mx-auto fadeIn rounded-lg" />
         <h1
           className="text-lg mb-4
           slideInLeft"

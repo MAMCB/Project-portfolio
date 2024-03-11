@@ -37,7 +37,7 @@ const ProjectDetail = () => {
             <div className="mt-8">
               <Carousel
                 className="details-carousel bg-gray-400 dark:bg-gray-600 fadeIn "
-                slide={true}
+                slide={false}
                 controls={true}
                 indicators={true}
               >

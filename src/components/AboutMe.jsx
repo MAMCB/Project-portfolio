@@ -3,6 +3,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { useState,useEffect } from 'react'
 import client from "../contentfulClient";
 import { AnimationOnScroll } from 'react-animation-on-scroll';
+import CanvasComponent from './CanvasComponent';
 
 
 const AboutMe = () => {
@@ -16,7 +17,7 @@ const AboutMe = () => {
   }, [])
  return (
    <div>
-     {aboutMe && (
+     {aboutMe ? (
        <div className="h-vh p-10 md:p-4 main-content">
          
            <div className="md:flex-1 md:flex md:items-center md:justify-center fadeIn">
@@ -51,6 +52,8 @@ const AboutMe = () => {
            })}
          </div>
        </div>
+     ):(
+       <CanvasComponent />
      )}
    </div>
  );

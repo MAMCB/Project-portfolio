@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import {Button,Label,Select,Textarea,TextInput} from "flowbite-react";
 import  { useRef } from "react";
 import emailjs from "@emailjs/browser";
+import CanvasComponent from './CanvasComponent';
+import { Suspense } from 'react';
 
 const Contacts = () => {
       const [resume, setResume] = useState(null);
@@ -73,6 +75,7 @@ const Contacts = () => {
       };
     
   return (
+    <Suspense fallback={<CanvasComponent />}>
     <div>
       <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">
         Let's get in touch
@@ -159,6 +162,7 @@ const Contacts = () => {
         </div>
       </div>
     </div>
+    </Suspense>
   );
 }
 

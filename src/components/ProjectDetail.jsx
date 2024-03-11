@@ -7,6 +7,8 @@ import { Button,Carousel,Card } from "flowbite-react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 
+import CanvasComponent from "./CanvasComponent";
+
 const ProjectDetail = () => {
   const id = useParams();
   const [project, setProject] = useState(null);
@@ -27,7 +29,7 @@ const ProjectDetail = () => {
 
   return (
     <div className="h-full p-2 md:p-8">
-      {project && (
+      {project ? (
         <>
           <h1 className=" mx-auto text-center p-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white fadeIn ">
             {project.fields.name}
@@ -218,7 +220,7 @@ const ProjectDetail = () => {
             )}
           </div>
         </>
-      )}
+      ):<CanvasComponent/>}
     </div>
   );
 };

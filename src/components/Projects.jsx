@@ -1,11 +1,11 @@
-import React from 'react'
+
 import {useState,useEffect} from 'react'
 import { Suspense } from 'react'
 import CanvasComponent from './CanvasComponent'
 import client from '../contentfulClient'
 import ProjectsCard from './ProjectsCard'
 import { Tabs } from "flowbite-react";
-import { HiAdjustments, HiClipboardList, HiUserCircle } from "react-icons/hi";
+import { HiAdjustments, HiUserCircle } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 import { Carousel,Card,Button } from 'flowbite-react';
 import { Label, Select } from "flowbite-react";
@@ -120,7 +120,7 @@ const Projects = () => {
               height="480"
               src="https://www.youtube.com/embed/WwgKwg2hdNA"
               title="Ongoing game projects"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
             ></iframe>
@@ -166,17 +166,17 @@ const Projects = () => {
               documents
                 .filter((document) => document.fields.portfolioArticle === true)
                 .map((document) => (
-                  <Suspense fallback={<CanvasComponent />}>
+                  <Suspense
+                    key={document.sys.id}
+                    fallback={<CanvasComponent />}
+                  >
                     <Carousel
                       className="bg-gray-400 dark:bg-gray-600 article-carousel"
                       slide={true}
                       controls={true}
                       indicators={true}
                     >
-                      <Card
-                        className="w-2/3 max-w-xl mx-auto mt-10 fadeIn"
-                        key={document.sys.id}
-                      >
+                      <Card className="w-2/3 max-w-xl mx-auto mt-10 fadeIn">
                         <img
                           src={document.fields.thumbnail.fields.file.url}
                           alt={document.fields.name}

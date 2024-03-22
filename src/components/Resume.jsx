@@ -1,4 +1,4 @@
-import React from "react";
+
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { useState, useEffect } from "react";
 import { Tabs } from "flowbite-react";
@@ -155,9 +155,11 @@ const Resume = () => {
                 },
               })}
             </div>
-          ): <CanvasComponent/>}
+          ) : (
+            <CanvasComponent />
+          )}
         </Tabs.Item>
-        <Tabs.Item title="Online courses"  icon={MdDashboard}>
+        <Tabs.Item title="Online courses" icon={MdDashboard}>
           {onlineCourses.length > 0 &&
             onlineCourses.map((course) => (
               <div key={course.fields.name} className="background mt-4">
@@ -178,6 +180,9 @@ const Resume = () => {
                   <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white mb-8">
                     By {course.fields.institute}
                   </h5>
+                  <h6 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white mb-8">
+                    Duration: {course.fields.duration} hours
+                  </h6>
                 </AnimationOnScroll>
                 <div className="main-content">
                   {documentToReactComponents(course.fields.description, {
@@ -310,16 +315,16 @@ const Resume = () => {
                 <ul className=" mx-auto flex flex-col justify-center p-8 text-center">
                   {resume.skillsLogo.map((skill) => (
                     <AnimationOnScroll
+                      key={skill.fields.name}
                       animateIn="slideInLeft"
                       animateOut="fadeOut"
                       animateOnce="true"
                     >
-                      <li
-                        key={skill.fields.name}
-                        className="m-4 background w-52  md:w-64"
-                      >
+                      <li className="m-4 background w-52  md:w-64">
                         <div className="flex  justify-evenly">
-                          <h2 className="mr-4 self-center">{skill.fields.name}</h2>
+                          <h2 className="mr-4 self-center">
+                            {skill.fields.name}
+                          </h2>
                           <img
                             src={skill.fields.logo.fields.file.url}
                             alt={skill.fields.name}
@@ -332,13 +337,12 @@ const Resume = () => {
 
                   {resume.technicalSkills.map((skill) => (
                     <AnimationOnScroll
+                      key={skill}
                       animateIn="slideInLeft"
                       animateOut="fadeOut"
                       animateOnce="true"
                     >
-                      <li key={skill} className="background m-4">
-                        {skill}
-                      </li>
+                      <li className="background m-4">{skill}</li>
                     </AnimationOnScroll>
                   ))}
                 </ul>
@@ -356,13 +360,12 @@ const Resume = () => {
                 <ul className=" mx-auto flex flex-col justify-center p-8 text-center">
                   {resume.personalStrengths.map((strength) => (
                     <AnimationOnScroll
+                      key={strength}
                       animateIn="slideInLeft"
                       animateOut="fadeOut"
                       animateOnce="true"
                     >
-                      <li key={strength} className="background m-4">
-                        {strength}
-                      </li>
+                      <li className="background m-4">{strength}</li>
                     </AnimationOnScroll>
                   ))}
                 </ul>

@@ -119,3 +119,11 @@ tr td, .background {
   
   height: 50rem;
 } 
+
+.skill-W-level:hover{
+  background-color: #4a5568;
+  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}

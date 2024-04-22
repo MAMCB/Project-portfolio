@@ -8,12 +8,15 @@ import client from "../contentfulClient";
 import { Button, Card, Carousel } from "flowbite-react";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 import CanvasComponent from "./CanvasComponent";
+import SkillLevelModal from "./SkillLevelModal";
 
 const Resume = () => {
   const [resume, setResume] = useState(null);
   const [cv, setCv] = useState(null);
   const [certifications, setCertifications] = useState([]);
   const [onlineCourses, setOnlineCourses] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [skillLevel, setSkillLevel] = useState(null);
 
   useEffect(() => {
     client
@@ -86,6 +89,25 @@ const Resume = () => {
 
     fetchData();
   }, [resume]);
+
+  useEffect(() => {
+    if (skillLevel){
+      setOpenModal(true);
+    }
+  }, [skillLevel]);
+
+  const showSkillLevel =  (e) => {
+    const skillLevelId = e.currentTarget.id;
+    console.log(skillLevelId);
+     getSkillLevel(skillLevelId);
+    
+  }
+
+  const getSkillLevel = async (skillLevelId) => {
+    const response = await client.getEntry(skillLevelId);
+    console.log(response.fields);
+    setSkillLevel( response.fields);
+  }
 
   return (
     <div className="p-2 md:p-4">
@@ -320,7 +342,7 @@ const Resume = () => {
                       animateOut="fadeOut"
                       animateOnce="true"
                     >
-                      <li className="m-4 background w-52  md:w-64">
+                      <li className="m-4 background skill-W-level w-52  md:w-64" id={skill.fields.skillLevel.sys.id} onClick={showSkillLevel}>
                         <div className="flex  justify-evenly">
                           <h2 className="mr-4 self-center">
                             {skill.fields.name}
@@ -403,6 +425,12 @@ const Resume = () => {
           )}
         </Tabs.Item>
       </Tabs>
+      {skillLevel && (
+      <SkillLevelModal
+        skillLevel={skillLevel}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />)}
     </div>
   );
 };

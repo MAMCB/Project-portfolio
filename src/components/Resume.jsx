@@ -255,7 +255,7 @@ const Resume = () => {
                     Technical Skills
                   </h3>
                 </AnimationOnScroll>
-                <ul className=" mx-auto flex flex-col md:flex-row md:justify-center   md:p-8 text-center">
+                <ul className=" mx-auto flex flex-col md:flex-row md:justify-center md:flex-wrap   md:p-8 text-center">
                   {course.fields.technologiesUsed.map((skill) => (
                     <AnimationOnScroll
                       key={skill.sys.id}
@@ -263,9 +263,9 @@ const Resume = () => {
                       animateOut="fadeOut"
                       animateOnce="true"
                     >
-                      <li className="mt-4 md:mx-auto md:ml-4 background w-64">
+                      <li className="mt-4 md:mx-auto md:ml-4 background ">
                         <div className="flex justify-evenly">
-                          <h2 className="mr-4">{skill.fields?.name}</h2>
+                          <h2 className="mr-4 self-center">{skill.fields?.name}</h2>
                           <img
                             src={skill.fields?.logo.fields.file.url}
                             alt={skill.fields?.name}
@@ -342,7 +342,7 @@ const Resume = () => {
                       animateOut="fadeOut"
                       animateOnce="true"
                     >
-                      <li className="m-4 background skill-W-level w-52  md:w-64" id={skill.fields.skillLevel.sys.id} onClick={showSkillLevel}>
+                      <li className="m-4 background skill-W-level " id={skill.fields.skillLevel.sys.id} onClick={showSkillLevel}>
                         <div className="flex  justify-evenly">
                           <h2 className="mr-4 self-center">
                             {skill.fields.name}
